@@ -1,22 +1,12 @@
-(function () {
-  const navButtons = Array.from(document.querySelectorAll(".nav__btn"));
-  const pages = Array.from(document.querySelectorAll(".page"));
+document.querySelectorAll(".nav__btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".nav__btn").forEach(b => b.classList.remove("is-active"));
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("is-active"));
 
-  function setActiveTab(tabId) {
-    navButtons.forEach(b => b.classList.toggle("is-active", b.dataset.tab === tabId));
-    pages.forEach(p => p.classList.toggle("is-active", p.id === tabId));
+    btn.classList.add("is-active");
+    document.getElementById(btn.dataset.tab).classList.add("is-active");
 
-    // reveal items in the newly shown page
-    window.dispatchEvent(new CustomEvent("page:changed", { detail: { tabId } }));
-  }
-
-  navButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      setActiveTab(btn.dataset.tab);
-      document.getElementById("content").scrollIntoView({ behavior: "smooth" });
-    });
+    document.getElementById("content").scrollIntoView({ behavior: "smooth" });
   });
-
-  // default
-  setActiveTab("fixtures");
-})();
+});
+``
