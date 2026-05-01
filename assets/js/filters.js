@@ -1,22 +1,23 @@
 (function () {
-  const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
-  const cards = Array.from(document.querySelectorAll(".player-card"));
+  const buttons = Array.from(document.querySelectorAll(".filter-btn"));
 
   function apply(role) {
-    cards.forEach(card => {
+    document.querySelectorAll(".player-card").forEach(card => {
       const show = role === "all" || card.dataset.role === role;
       card.classList.toggle("is-hidden", !show);
     });
   }
 
-  filterButtons.forEach(btn => {
+  buttons.forEach(btn => {
     btn.addEventListener("click", () => {
-      filterButtons.forEach(b => b.classList.remove("is-active"));
+      buttons.forEach(b => b.classList.remove("is-active"));
       btn.classList.add("is-active");
-      apply(btn.dataset.role);
+      apply(btn.dataset.role || "all");
     });
   });
 
-  // default
-  apply("all");
+  window.addEventListener("squad:rendered", () => {
+    const active = document.querySelector(".filter-btn.is-active");
+    apply(active ? active.dataset.role : "all");
+  });
 })();
