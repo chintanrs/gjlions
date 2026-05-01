@@ -25,7 +25,9 @@ body.is-scrolled .hero-logo-wrapper {
   align-items: center;
   gap: 6px;
 }
-.scroll-cue span:first-child { opacity: 0.85; }
+.scroll-cue span:first-child {
+  opacity: 0.85;
+}
 
 /* ================= NAV ================= */
 
@@ -67,73 +69,103 @@ body.is-scrolled .hero-logo-wrapper {
   margin-bottom: 26px;
 }
 
-/* ================= TOURNAMENT TILES (NEW) ================= */
+/* ================= TOURNAMENT TILES (OPTION 1 ✅) ================= */
 
 .tournament-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
   justify-content: center;
-  gap: 22px;
-  margin-top: 18px;
+  gap: 24px;
+  margin-top: 20px;
 }
 
 .tournament-card {
+  position: relative;
   border: none;
   cursor: pointer;
   text-align: left;
 
-  /* square + rounded corners */
+  /* square card */
   aspect-ratio: 1 / 1;
-  border-radius: 18px;
+  border-radius: 20px;
 
   background: linear-gradient(145deg, #163c63, #0b2036);
   box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 
-  padding: 18px;
+  padding: 22px;
   color: #fff;
   border: 1px solid rgba(255,255,255,0.08);
 }
 
 .tournament-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.7);
   border-color: rgba(245,166,35,0.35);
 }
 
 .tournament-card:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(245,166,35,0.35) inset, 0 30px 60px rgba(0,0,0,0.7);
+  box-shadow:
+    0 0 0 3px rgba(245,166,35,0.35) inset,
+    0 32px 64px rgba(0,0,0,0.7);
 }
 
+/* ✅ KEY CHANGE: center content vertically */
 .tournament-card__inner {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
 }
 
+/* ✅ Tournament is the hero */
 .tournament-card__name {
-  font-size: 1.35rem;
+  font-size: 1.8rem;
   font-weight: 900;
   color: var(--gold);
-  letter-spacing: 0.3px;
+  line-height: 1.15;
 }
 
+/* ✅ Season secondary */
 .tournament-card__meta {
-  opacity: 0.85;
-  font-weight: 650;
+  font-size: 1.2rem;
+  font-weight: 700;
+  opacity: 0.9;
 }
 
+/* ✅ Match count anchors the card */
 .tournament-card__count {
   margin-top: auto;
-  opacity: 0.9;
+  padding-top: 14px;
+  font-size: 1rem;
   font-weight: 750;
+  opacity: 0.85;
 }
 
-/* tournament fixtures view */
+/* subtle depth highlight */
+.tournament-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle at top left,
+    rgba(245,166,35,0.12),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+/* ================= TOURNAMENT FIXTURES VIEW ================= */
+
 .tournament-fixtures {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .back-btn {
@@ -144,12 +176,11 @@ body.is-scrolled .hero-logo-wrapper {
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
-  margin: 0 auto 18px;
+  margin: 0 auto 20px;
   display: inline-flex;
   gap: 10px;
   align-items: center;
 }
-
 .back-btn:hover {
   border-color: rgba(245,166,35,0.45);
   background: rgba(245,166,35,0.12);
@@ -159,17 +190,15 @@ body.is-scrolled .hero-logo-wrapper {
   text-align: center;
   font-size: 1.4rem;
   font-weight: 850;
-  margin-bottom: 18px;
-  color: #fff;
-  opacity: 0.95;
+  margin-bottom: 20px;
 }
 
-/* ================= FIXTURES ACCORDION (existing) ================= */
+/* ================= FIXTURES ACCORDION ================= */
 
 .fixtures-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 18px;
 }
 
 .fixture-item {
@@ -185,7 +214,7 @@ body.is-scrolled .hero-logo-wrapper {
   box-shadow: 0 28px 55px rgba(0,0,0,0.65);
 }
 
-/* Remove default marker/triangle */
+/* remove default marker */
 .fixture-item > summary {
   list-style: none;
 }
@@ -200,11 +229,6 @@ body.is-scrolled .hero-logo-wrapper {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  outline: none;
-}
-
-.fixture-summary:focus-visible {
-  box-shadow: 0 0 0 3px rgba(245,166,35,0.35) inset;
 }
 
 .fixture-summary__left {
@@ -215,7 +239,6 @@ body.is-scrolled .hero-logo-wrapper {
 .fixture-summary__date {
   color: var(--gold);
   font-weight: 800;
-  letter-spacing: 0.2px;
 }
 
 .fixture-summary__match {
@@ -223,7 +246,7 @@ body.is-scrolled .hero-logo-wrapper {
   font-weight: 800;
 }
 
-/* Chevron icon on right */
+/* chevron */
 .fixture-summary__icon {
   width: 34px;
   height: 34px;
@@ -232,18 +255,13 @@ body.is-scrolled .hero-logo-wrapper {
   background: rgba(15,42,68,0.35);
   display: grid;
   place-items: center;
-  position: relative;
 }
-
 .fixture-summary__icon::before {
   content: "▾";
   color: var(--gold);
   font-size: 18px;
-  line-height: 1;
-  transform: rotate(0deg);
   transition: transform 0.2s ease;
 }
-
 .fixture-item[open] .fixture-summary__icon::before {
   transform: rotate(180deg);
 }
@@ -251,12 +269,6 @@ body.is-scrolled .hero-logo-wrapper {
 .fixture-panel {
   padding: 0 18px 18px;
   border-top: 1px solid rgba(255,255,255,0.08);
-  animation: fixturePanelIn 180ms ease-out;
-}
-
-@keyframes fixturePanelIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .fixture-row {
@@ -266,77 +278,6 @@ body.is-scrolled .hero-logo-wrapper {
   padding-top: 14px;
 }
 
-.fixture-label {
-  opacity: 0.75;
-  font-weight: 700;
-}
-
-.fixture-value {
-  opacity: 0.95;
-  font-weight: 650;
-}
-
-/* ================= SQUAD FILTERS (unchanged) ================= */
-
-.filters {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 34px;
-}
-
-.filter-btn {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.20);
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 650;
-}
-
-.filter-btn.is-active {
-  background: rgba(245,166,35,0.20);
-  border-color: var(--gold);
-}
-
-/* Squad cards */
-.squad-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 28px;
-}
-
-.player-card {
-  background: linear-gradient(145deg, #163c63, #0b2036);
-  padding: 28px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.player-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-}
-
-.player-name { font-size: 1.25rem; font-weight: 800; }
-.player-role { margin-top: 8px; opacity: 0.85; }
-
-.is-hidden { display: none !important; }
-
-/* ================= GALLERY ================= */
-
-.gallery-placeholder {
-  border: 2px dashed rgba(255,255,255,0.25);
-  border-radius: 16px;
-  padding: 100px 20px;
-  text-align: center;
-  opacity: 0.75;
-}
-
 /* ================= FOOTER ================= */
 
 .footer__logo {
@@ -344,33 +285,19 @@ body.is-scrolled .hero-logo-wrapper {
   max-width: 80px;
   margin: 0 auto 14px;
   display: block;
-  opacity: 0.9;
 }
-
 .footer__motto {
   font-weight: 750;
-  letter-spacing: 0.6px;
-  opacity: 0.95;
 }
 
-.footer__copy {
-  margin-top: 14px;
-  opacity: 0.75;
-  font-size: 0.92rem;
+/* ================= UTIL ================= */
+
+.is-hidden {
+  display: none !important;
 }
 
-/* ================= STATES ================= */
-
-.data-error,
-.empty-state {
-  text-align: center;
-  padding: 24px;
-  opacity: 0.85;
-}
-
-/* ================= MOBILE ================= */
 @media (max-width: 520px) {
-  .fixture-row { grid-template-columns: 1fr; }
-  .fixture-label { opacity: 0.7; }
+  .fixture-row {
+    grid-template-columns: 1fr;
+  }
 }
-``
