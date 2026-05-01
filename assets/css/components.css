@@ -1,17 +1,15 @@
 /* ================= HERO ================= */
 
-/* shrink is on wrapper (no conflict with floating animation on logo) */
 .hero-logo-wrapper {
   transition: transform 0.4s ease;
   will-change: transform;
 }
-
 body.is-scrolled .hero-logo-wrapper {
   transform: scale(0.86) translateY(-10px);
 }
 
 .hero__logo {
-  width: 700px;
+  width: 500px;
   max-width: 90vw;
 }
 
@@ -27,10 +25,7 @@ body.is-scrolled .hero-logo-wrapper {
   align-items: center;
   gap: 6px;
 }
-
-.scroll-cue span:first-child {
-  opacity: 0.85;
-}
+.scroll-cue span:first-child { opacity: 0.85; }
 
 /* ================= NAV ================= */
 
@@ -44,12 +39,10 @@ body.is-scrolled .hero-logo-wrapper {
   opacity: 0.65;
   position: relative;
 }
-
 .nav__btn.is-active {
   opacity: 1;
   color: var(--gold);
 }
-
 .nav__btn.is-active::after {
   content: "";
   position: absolute;
@@ -68,61 +61,130 @@ body.is-scrolled .hero-logo-wrapper {
   color: var(--gold);
   margin-bottom: 10px;
 }
-
 .page__subtitle {
   text-align: center;
   opacity: 0.85;
-  margin-bottom: 46px;
+  margin-bottom: 26px;
 }
 
-/* ================= FIXTURES ================= */
+/* ================= FIXTURES (NEW TILE + EXPAND) ================= */
 
 .fixtures-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
-.fixture-card {
+/* details element styled as a card */
+.fixture-item {
   background: linear-gradient(145deg, #163c63, #0b2036);
-  padding: 28px;
   border-radius: 18px;
   box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.fixture-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+/* hover lift */
+.fixture-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 55px rgba(0,0,0,0.65);
 }
 
-.fixture-date {
+/* Remove default marker/triangle */
+.fixture-item > summary {
+  list-style: none;
+}
+.fixture-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Summary (the tile face) */
+.fixture-summary {
+  cursor: pointer;
+  padding: 18px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  outline: none;
+}
+
+.fixture-summary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(245,166,35,0.35) inset;
+}
+
+.fixture-summary__left {
+  display: grid;
+  gap: 6px;
+}
+
+.fixture-summary__date {
   color: var(--gold);
-  font-weight: 750;
-  margin-bottom: 6px;
-}
-
-.fixture-match {
-  font-size: 1.35rem;
   font-weight: 800;
-  margin-bottom: 10px;
+  letter-spacing: 0.2px;
 }
 
-.fixture-meta {
-  display: inline-block;
-  font-size: 0.85rem;
-  padding: 4px 12px;
+.fixture-summary__match {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+/* Chevron icon on right */
+.fixture-summary__icon {
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
-  background: rgba(245,166,35,0.18);
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(15,42,68,0.35);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.fixture-summary__icon::before {
+  content: "▾";
   color: var(--gold);
-  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 1;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
 }
 
-.fixture-venue {
-  opacity: 0.85;
+/* rotate chevron when open */
+.fixture-item[open] .fixture-summary__icon::before {
+  transform: rotate(180deg);
 }
 
-/* ================= SQUAD FILTERS ================= */
+/* Panel (expanded content) */
+.fixture-panel {
+  padding: 0 18px 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fixturePanelIn 180ms ease-out;
+}
+
+@keyframes fixturePanelIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fixture-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 14px;
+  padding-top: 14px;
+}
+
+.fixture-label {
+  opacity: 0.75;
+  font-weight: 700;
+}
+
+.fixture-value {
+  opacity: 0.95;
+  font-weight: 650;
+}
+
+/* ================= SQUAD FILTERS (unchanged) ================= */
 
 .filters {
   display: flex;
@@ -168,20 +230,10 @@ body.is-scrolled .hero-logo-wrapper {
   box-shadow: 0 30px 60px rgba(0,0,0,0.7);
 }
 
-.player-name {
-  font-size: 1.25rem;
-  font-weight: 800;
-}
+.player-name { font-size: 1.25rem; font-weight: 800; }
+.player-role { margin-top: 8px; opacity: 0.85; }
 
-.player-role {
-  margin-top: 8px;
-  opacity: 0.85;
-}
-
-/* class used by filters.js to hide cards */
-.is-hidden {
-  display: none !important;
-}
+.is-hidden { display: none !important; }
 
 /* ================= GALLERY ================= */
 
@@ -193,23 +245,17 @@ body.is-scrolled .hero-logo-wrapper {
   opacity: 0.75;
 }
 
-/* ================= FOOTER ================= */
+/* ================= STATES ================= */
 
-.footer__logo {
-  width: 70px;
-  filter: drop-shadow(0 0 18px rgba(245,166,35,0.35));
-  opacity: 0.95;
+.data-error,
+.empty-state {
+  text-align: center;
+  padding: 24px;
+  opacity: 0.85;
 }
 
-.footer__motto {
-  margin-top: 10px;
-  font-weight: 750;
-  letter-spacing: 0.6px;
-  opacity: 0.95;
-}
-
-.footer__copy {
-  margin-top: 14px;
-  opacity: 0.75;
-  font-size: 0.92rem;
+/* ================= MOBILE TWEAK ================= */
+@media (max-width: 520px) {
+  .fixture-row { grid-template-columns: 1fr; }
+  .fixture-label { opacity: 0.7; }
 }
