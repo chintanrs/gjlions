@@ -1,8 +1,11 @@
 (async function () {
-  const grid = document.getElementById("fixturesGrid");
-  const subtitle = document.getElementById("fixturesSubtitle");
+  const tournamentGrid = document.getElementById("tournamentGrid");
+  const tournamentFixtures = document.getElementById("tournamentFixtures");
+  const backBtn = document.getElementById("backToTournaments");
+  const tournamentHeading = document.getElementById("tournamentHeading");
+  const fixturesGrid = document.getElementById("fixturesGrid");
 
-  if (!grid) return;
+  if (!tournamentGrid || !tournamentFixtures || !backBtn || !tournamentHeading || !fixturesGrid) return;
 
   let data;
   try {
@@ -10,82 +13,124 @@
     if (!res.ok) throw new Error("Failed to load fixtures.json");
     data = await res.json();
   } catch (e) {
-    grid.innerHTML = `<div class="data-error">Could not load fixtures data.</div>`;
+    tournamentGrid.innerHTML = `<div class="data-error">Could not load fixtures data.</div>`;
     return;
   }
 
-  if (subtitle) subtitle.textContent = data.tournament || "Fixtures";
+  const tournaments = Array.isArray(data.tournaments) ? data.tournaments : [];
 
-  const fmt = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-  });
+  if (tournaments.length === 0) {
+    tournamentGrid.innerHTML = `<div class="empty-state">No tournaments added yet.</div>`;
+    return;
+  }
 
-  // Optional: sort by date ascending
-  const items = [...(data.items || [])].sort((a, b) => {
-    const da = new Date((a.date || "1970-01-01") + "T00:00:00").getTime();
-    const db = new Date((b.date || "1970-01-01") + "T00:00:00").getTime();
-    return da - db;
-  });
+  const fmt = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" });
 
-  grid.innerHTML = "";
+  function showTournamentList() {
+    tournamentGrid.classList.remove("is-hidden");
+    tournamentFixtures.classList.add("is-hidden");
+    fixturesGrid.innerHTML = "";
+    tournamentHeading.textContent = "";
+    window.dispatchEvent(new CustomEvent("page:changed"));
+  }
 
-  items.forEach((item, idx) => {
-    const dateStr = item.date ? fmt.format(new Date(item.date + "T00:00:00")) : "";
-    const timeStr = (item.time && String(item.time).trim()) ? item.time : "TBD";
-    const matchup = `${item.teamA} vs ${item.teamB}`;
+  function showFixturesForTournament(t) {
+    // switch views
+    tournamentGrid.classList.add("is-hidden");
+    tournamentFixtures.classList.remove("is-hidden");
 
-    // Native disclosure widget (<details>/<summary>) 【1-73b520】【2-03f337】
-    const details = document.createElement("details");
-    details.className = "fixture-item reveal";
-    details.dataset.fixtureIndex = String(idx);
+    tournamentHeading.textContent = t.season ? `${t.name} • ${t.season}` : t.name;
 
-    const summary = document.createElement("summary");
-    summary.className = "fixture-summary";
+    // render fixtures
+    fixturesGrid.innerHTML = "";
 
-    // COLLAPSED TILE: ONLY date + matchup (as you requested)
-    summary.innerHTML = `
-      <div class="fixture-summary__left">
-        <div class="fixture-summary__date">${dateStr}</div>
-        <div class="fixture-summary__match">${matchup}</div>
-      </div>
-      <div class="fixture-summary__icon" aria-hidden="true"></div>
-    `;
+    const fixtures = Array.isArray(t.fixtures) ? [...t.fixtures] : [];
 
-    // EXPANDED PANEL: tournament, venue, date & time
-    const panel = document.createElement("div");
-    panel.className = "fixture-panel";
-    panel.innerHTML = `
-      <div class="fixture-row">
-        <div class="fixture-label">Tournament</div>
-        <div class="fixture-value">${data.tournament || ""}</div>
-      </div>
-      <div class="fixture-row">
-        <div class="fixture-label">Venue</div>
-        <div class="fixture-value">${item.venue || ""}</div>
-      </div>
-      <div class="fixture-row">
-        <div class="fixture-label">Date & Time</div>
-        <div class="fixture-value">${dateStr} • ${timeStr}</div>
-      </div>
-    `;
-
-    details.appendChild(summary);
-    details.appendChild(panel);
-
-    // ✅ Only one open at a time (accordion behavior) 【3-0e05bb】
-    details.addEventListener("toggle", () => {
-      if (!details.open) return; // only act when opening
-      const all = grid.querySelectorAll("details.fixture-item[open]");
-      all.forEach(d => {
-        if (d !== details) d.removeAttribute("open");
-      });
+    fixtures.sort((a, b) => {
+      const da = new Date((a.date || "1970-01-01") + "T00:00:00").getTime();
+      const db = new Date((b.date || "1970-01-01") + "T00:00:00").getTime();
+      return da - db;
     });
 
-    grid.appendChild(details);
-  });
+    if (fixtures.length === 0) {
+      fixturesGrid.innerHTML = `<div class="empty-state">No fixtures in this tournament yet.</div>`;
+      return;
+    }
 
-  // Trigger reveal animations if your main.js listens for this event
-  window.dispatchEvent(new CustomEvent("page:changed"));
+    fixtures.forEach((item) => {
+      const dateStr = item.date ? fmt.format(new Date(item.date + "T00:00:00")) : "";
+      const timeStr = (item.time && String(item.time).trim()) ? item.time : "TBD";
+      const matchup = `${item.teamA} vs ${item.teamB}`;
+
+      // Native disclosure widget <details>/<summary> 【1-544cd4】
+      // Using name groups makes it accordion-style (only one open at a time) without extra JS. 【1-544cd4】
+      const details = document.createElement("details");
+      details.className = "fixture-item reveal";
+      details.setAttribute("name", "fixture-accordion");
+
+      const summary = document.createElement("summary");
+      summary.className = "fixture-summary";
+      summary.innerHTML = `
+        <div class="fixture-summary__left">
+          <div class="fixture-summary__date">${dateStr}</div>
+          <div class="fixture-summary__match">${matchup}</div>
+        </div>
+        <div class="fixture-summary__icon" aria-hidden="true"></div>
+      `;
+
+      const panel = document.createElement("div");
+      panel.className = "fixture-panel";
+      panel.innerHTML = `
+        <div class="fixture-row">
+          <div class="fixture-label">Tournament</div>
+          <div class="fixture-value">${t.name}</div>
+        </div>
+        <div class="fixture-row">
+          <div class="fixture-label">Venue</div>
+          <div class="fixture-value">${item.venue || ""}</div>
+        </div>
+        <div class="fixture-row">
+          <div class="fixture-label">Date & Time</div>
+          <div class="fixture-value">${dateStr} • ${timeStr}</div>
+        </div>
+      `;
+
+      details.appendChild(summary);
+      details.appendChild(panel);
+      fixturesGrid.appendChild(details);
+    });
+
+    window.dispatchEvent(new CustomEvent("page:changed"));
+  }
+
+  // Render tournament tiles (square rounded cards)
+  function renderTournamentTiles() {
+    tournamentGrid.innerHTML = "";
+
+    tournaments.forEach((t) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tournament-card reveal";
+
+      const count = Array.isArray(t.fixtures) ? t.fixtures.length : 0;
+      btn.innerHTML = `
+        <div class="tournament-card__inner">
+          <div class="tournament-card__name">${t.name}</div>
+          <div class="tournament-card__meta">${t.season ? t.season : ""}</div>
+          <div class="tournament-card__count">${count} match${count === 1 ? "" : "es"}</div>
+        </div>
+      `;
+
+      btn.addEventListener("click", () => showFixturesForTournament(t));
+      tournamentGrid.appendChild(btn);
+    });
+
+    window.dispatchEvent(new CustomEvent("page:changed"));
+  }
+
+  backBtn.addEventListener("click", showTournamentList);
+
+  renderTournamentTiles();
+  showTournamentList();
 })();
+``
