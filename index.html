@@ -11,44 +11,41 @@
 
 <body>
 
-  <section class="scene" id="scene">
+<section class="scene" id="scene">
 
-    <!-- Background -->
-    <div class="scene-bg"></div>
+  <!-- Background -->
+  <div class="scene-bg"></div>
 
-    <!-- Subtle hint -->
-    <div class="scene-hint">
-      CLICK LOGO
-    </div>
+  <!-- Subtle hint -->
+  <div class="scene-hint">CLICK LOGO</div>
 
-    <!-- Center logo -->
-    <button class="logo-core" id="logoCore">
-      <img src="assets/images/logo.png" alt="GJ Titans Logo">
-    </button>
+  <!-- SVG Energy Arcs -->
+  <svg class="energy-arcs" viewBox="0 0 1000 1000">
+    <path id="arc-squad" />
+    <path id="arc-fixtures" />
+    <path id="arc-gallery" />
+  </svg>
 
-    <!-- Radial menu -->
-    <div class="radial-menu" id="radialMenu">
-      <button class="menu-item squad" data-target="squad">
-        🪖
-        <span>SQUAD</span>
-      </button>
+  <!-- Logo -->
+  <button class="logo-core" id="logoCore">
+    <img src="assets/images/logo.png" alt="GJ Titans Logo">
+  </button>
 
-      <button class="menu-item fixtures" data-target="fixtures">
-        📅
-        <span>FIXTURES</span>
-      </button>
+  <!-- Menu -->
+  <div class="radial-menu">
+    <button class="menu-item squad" data-target="squad">🪖<span>SQUAD</span></button>
+    <button class="menu-item fixtures" data-target="fixtures">📅<span>FIXTURES</span></button>
+    <button class="menu-item gallery" data-target="gallery">🖼️<span>GALLERY</span></button>
+  </div>
 
-      <button class="menu-item gallery" data-target="gallery">
-        🖼️
-        <span>GALLERY</span>
-      </button>
-    </div>
+  <!-- Overlay content -->
+  <div class="content-layer" id="contentLayer"></div>
 
-    <!-- Overlay content -->
-    <div class="content-layer" id="contentLayer"></div>
+  <!-- Particles -->
+  <canvas id="particles"></canvas>
 
-  </section>
+</section>
 
-  <script src="assets/js/home-single.js"></script>
+<script src="assets/js/home-single.js"></script>
 </body>
 </html>
