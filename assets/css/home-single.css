@@ -1,160 +1,185 @@
 :root {
-  --gold:#f5a623;
-  --bg1:#071a2f;
-  --bg2:#102c4f;
+  --gold: #f5a623;
+  --bg1: #071a2f;
+  --bg2: #102c4f;
 }
 
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:radial-gradient(circle at top,var(--bg2),var(--bg1));
-  font-family:system-ui,-apple-system;
+/* Reset */
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI";
+  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
 }
 
-.scene{
-  position:relative;
-  width:100%;
-  height:100%;
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.scene-bg{
-  position:absolute;
-  inset:0;
+/* Background texture */
+.scene-bg {
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(circle at 20% 20%,rgba(255,255,255,.05),transparent 40%),
-    radial-gradient(circle at 80% 30%,rgba(255,255,255,.04),transparent 45%);
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.04), transparent 45%);
 }
 
 /* Hint */
-.scene-hint{
-  position:absolute;
-  top:28px;
-  width:100%;
-  text-align:center;
-  font-size:.65rem;
-  letter-spacing:.35em;
-  opacity:.35;
-  pointer-events:none;
+.scene-hint {
+  position: absolute;
+  top: 28px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: rgba(255,255,255,0.35);
+  pointer-events: none;
 }
 
 /* Logo */
-.logo-core{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  background:none;
-  border:none;
-  cursor:pointer;
-  z-index:10;
+.logo-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
 }
 
-.logo-core img{
-  width:260px;
-  animation:breathe 5s ease-in-out infinite;
-  filter:drop-shadow(0 0 70px rgba(245,166,35,.7));
+.logo-core img {
+  width: 680px; /* ✅ MUCH BIGGER */
+  max-width: 90vw;
+  animation: breathe 6s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 120px rgba(245,166,35,0.75));
 }
 
-@keyframes breathe{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.05)}
+@keyframes breathe {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 
-/* Menu */
-.radial-menu{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+/* Radial menu */
+.radial-menu {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.menu-item{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%) scale(.4);
-  opacity:0;
-  background:none;
-  border:none;
-  color:white;
-  font-weight:800;
-  letter-spacing:.18em;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-  transition:.45s cubic-bezier(.2,.85,.2,1);
+.menu-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  transition:
+    transform 0.6s cubic-bezier(.15, .9, .25, 1),
+    opacity 0.3s ease;
 }
 
-.menu-item span{font-size:.7rem}
-
-.scene.is-open .menu-item{
-  opacity:1;
-  transform:translate(-50%,-50%) scale(1);
-  pointer-events:auto;
+.menu-item span {
+  font-size: 1.1rem; /* ✅ BIG & BOLD */
 }
 
-.scene.is-open .menu-item.squad{
-  transform:translate(-50%,-240px);
+.scene.is-open .menu-item {
+  opacity: 1;
+  pointer-events: auto;
 }
-.scene.is-open .menu-item.fixtures{
-  transform:translate(220px,140px);
+
+/* Positions */
+.scene.is-open .menu-item.squad {
+  transform: translate(-50%, -380px) scale(1);
 }
-.scene.is-open .menu-item.gallery{
-  transform:translate(-220px,140px);
+
+.scene.is-open .menu-item.fixtures {
+  transform: translate(360px, 260px) scale(1);
+}
+
+.scene.is-open .menu-item.gallery {
+  transform: translate(-360px, 260px) scale(1);
 }
 
 /* Energy arcs */
-.energy-arcs{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+.energy-arcs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.energy-arcs path{
-  fill:none;
-  stroke:rgba(245,166,35,.85);
-  stroke-width:2;
-  filter:drop-shadow(0 0 12px rgba(245,166,35,.6));
-  opacity:0;
-  transition:opacity .4s ease;
+.energy-arcs path {
+  fill: none;
+  stroke: rgba(245,166,35,0.9);
+  stroke-width: 3;
+  filter: url(#arcGlow);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.scene.is-open .energy-arcs path{
-  opacity:1;
+.scene.is-open .energy-arcs path {
+  opacity: 1;
 }
 
 /* Content overlay */
-.content-layer{
-  position:absolute;
-  inset:0;
-  background:rgba(7,26,47,.55);
-  backdrop-filter:blur(14px);
-  opacity:0;
-  pointer-events:none;
-  z-index:20;
-  padding:80px 40px;
-  color:white;
-  transition:.4s ease;
+.content-layer {
+  position: absolute;
+  inset: 0;
+  background: rgba(7,26,47,0.55);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  padding: 100px 60px;
+  color: white;
+  transition: opacity 0.4s ease;
 }
 
-.content-layer.is-visible{
-  opacity:1;
-  pointer-events:auto;
+.content-layer.is-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.content-layer h1{
-  color:var(--gold);
-  font-size:2.4rem;
-  margin-bottom:16px;
+.content-layer h1 {
+  color: var(--gold);
+  font-size: 3rem;
 }
 
 /* Mobile */
-@media(max-width:600px){
-  .logo-core img{width:200px}
-  .scene.is-open .menu-item.squad{transform:translate(-50%,-190px)}
-  .scene.is-open .menu-item.fixtures{transform:translate(160px,110px)}
-  .scene.is-open .menu-item.gallery{transform:translate(-160px,110px)}
+@media (max-width: 768px) {
+  .logo-core img {
+    width: 420px;
+  }
+
+  .scene.is-open .menu-item.squad {
+    transform: translate(-50%, -260px);
+  }
+
+  .scene.is-open .menu-item.fixtures {
+    transform: translate(220px, 180px);
+  }
+
+  .scene.is-open .menu-item.gallery {
+    transform: translate(-220px, 180px);
+  }
 }
+``
