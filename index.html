@@ -19,23 +19,46 @@
   <!-- Subtle hint -->
   <div class="scene-hint">CLICK LOGO</div>
 
-  <!-- SVG Energy Arcs -->
-  <svg class="energy-arcs" viewBox="0 0 1000 1000">
-    <path id="arc-squad" />
-    <path id="arc-fixtures" />
-    <path id="arc-gallery" />
+  <!-- Energy arcs -->
+  <svg class="energy-arcs" id="energyArcs"
+       viewBox="0 0 1000 1000"
+       preserveAspectRatio="none">
+    <defs>
+      <filter id="arcGlow">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <path id="arc-squad"/>
+    <path id="arc-fixtures"/>
+    <path id="arc-gallery"/>
   </svg>
 
   <!-- Logo -->
   <button class="logo-core" id="logoCore">
-    <img src="assets/images/logo.png" alt="GJ Titans Logo">
+    <img src="assets/images/logo.png" alt="GJ Titans logo" />
   </button>
 
-  <!-- Menu -->
+  <!-- Radial menu -->
   <div class="radial-menu">
-    <button class="menu-item squad" data-target="squad">🪖<span>SQUAD</span></button>
-    <button class="menu-item fixtures" data-target="fixtures">📅<span>FIXTURES</span></button>
-    <button class="menu-item gallery" data-target="gallery">🖼️<span>GALLERY</span></button>
+    <button class="menu-item squad" data-target="squad">
+      🪖
+      <span>SQUAD</span>
+    </button>
+
+    <button class="menu-item fixtures" data-target="fixtures">
+      📅
+      <span>FIXTURES</span>
+    </button>
+
+    <button class="menu-item gallery" data-target="gallery">
+      🖼️
+      <span>GALLERY</span>
+    </button>
   </div>
 
   <!-- Overlay content -->
