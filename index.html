@@ -6,28 +6,55 @@
   <title>GJ Titans | Official Website</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="assets/images/logo.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/images/logo.png" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/reset.css" />
-  <link rel="stylesheet" href="assets/css/layout.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-  <link rel="stylesheet" href="assets/css/animations.css" />
-</head>
-
-<body>
-  <!-- HERO -->
-  <header class="hero" id="top">
-    <div class="hero-logo-wrapper">
-      <img src="assets/images/logo.png" alt="GJ Titans logo" class="hero__logo" />
+  <link rel="icon" href="assets/images/logo.png"h-icon" href="assets/images/logo.png"heet" href="assets/css/reset.css"="assets/css/layout.css"="assets/css/components.css"="assets/css/animations.css"="assets/css/home-explode.css"============ EXPLODING HOME OVERLAY ================= -->
+  <section class="explode-home" id="explodeHome" aria-label="GJ Titans Home">
+    <div class="explode-bg" aria-hidden="true">
+      <div class="bokeh b1"></div>
+      <div class="bokeh b2"></div>
+      <div class="bokeh b3"></div>
+      <div class="bokeh b4"></div>
+      <div class="bokeh b5"></div>
+      <div class="stadium-haze"></div>
     </div>
 
-    <button class="scroll-cue" id="scrollCue" type="button" aria-label="Scroll to content">
-      <span>Scroll</span>
-      <span class="scroll-cue__arrow" aria-hidden="true">↓</span>
-    </button>
-  </header>
+    <div class="explode-hud">
+      <div class="hint">&lt; CLICK LOGO TO EXPLODE MENU &gt;</div>
+      <div class="hint subtle">&lt; CLICK ANYWHERE ELSE TO RETRACT &gt;</div>
+    </div>
+
+    <!-- Center rig -->
+    <div class="explode-rig" id="explodeRig">
+      <!-- SVG arcs behind nodes -->
+      <svg class="arc-svg" id="arcSvg" viewBox="0 0 600 600" aria-hidden="true">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- Paths are injected by JS -->
+      </svg>
+
+      <!-- Central logo button -->
+      <button class="logo-core" id="logoCore" type="button" aria-label="Open navigation">
+        <span class="logo-energy" aria-hidden="true"></span>
+        <img src="assets/images/logo.png" class="logo-img" alt="GJ Titans"="true"></span>
+      </button>
+
+      <!-- Nodes container -->
+      <div class="nodes" id="nodes" aria-label="Primary navigation">
+        <!-- Node buttons injected by JS -->
+      </div>
+
+      <!-- Particle layer -->
+      <canvas class="particles" id="particles" aria-hidden="true"></canvas>
+    </div>
+  </section>
+
+  <!-- ================= YOUR EXISTING SITE ================= -->
 
   <!-- NAV -->
   <nav class="nav" aria-label="Primary">
@@ -38,37 +65,28 @@
 
   <!-- CONTENT -->
   <main class="main" id="content">
-    <!-- FIXTURES -->
     <section class="page is-active" id="fixtures">
       <h1 class="page__title">Fixtures</h1>
-    
-
-      <div class="tournament-grid" id="tournamentGrid"></div>
-
-      <div class="tournament-fixtures is-hidden" id="tournamentFixtures">
+      <div id="tournamentGrid" class="tournament-grid"></div>
+      <div id="tournamentFixtures" class="tournament-fixtures is-hidden">
         <button class="back-btn" id="backToTournaments" type="button">← All tournaments</button>
         <h2 class="tournament-heading" id="tournamentHeading"></h2>
-
         <div class="fixtures-area" id="fixturesGrid"></div>
       </div>
     </section>
 
-    <!-- SQUAD -->
     <section class="page" id="squad">
       <h1 class="page__title">Squad</h1>
       <p class="page__subtitle">Filter by role</p>
-
       <div class="filters">
         <button class="filter-btn is-active" data-role="all" type="button">All</button>
         <button class="filter-btn" data-role="batsman" type="button">Batsmen</button>
         <button class="filter-btn" data-role="allrounder" type="button">All‑Rounders</button>
         <button class="filter-btn" data-role="bowler" type="button">Bowlers</button>
       </div>
-
       <div class="squad-grid" id="squadGrid"></div>
     </section>
 
-    <!-- GALLERY -->
     <section class="page" id="gallery">
       <h1 class="page__title">Gallery</h1>
       <p class="page__subtitle">Photos coming soon 📸</p>
@@ -78,16 +96,10 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <img class="footer__logo" src="assets/images/logo.png" alt="GJ Titans logo" />
-    <div class="footer__motto">United • Fearless • Titans</div>
+    <img class="footer__logo" src="assets/images/logo.png" alt="GJ Titans logo"itans</div>
     <div class="footer__copy">© 2026 GJ Titans</div>
   </footer>
 
   <!-- JS -->
-  <script src="assets/js/navigation.js" defer></script>
-  <script src="assets/js/render-fixtures.js" defer></script>
-  <script src="assets/js/render-squad.js" defer></script>
-  <script src="assets/js/filters.js" defer></script>
-  <script src="assets/js/main.js" defer></script>
-</body>
-</html>
+  <script src="assets/js/navigation.js" deferc="assets/js/render-fixtures.js" deferc="assets/js/render-squad.js"ipt src="assets/js/filters.js" deferc="assets/js/main.js" deferc="assets/js/home-explode.js" defertml>
+``
