@@ -3,7 +3,6 @@ const logo = document.getElementById("logoCore");
 const content = document.getElementById("contentLayer");
 
 const menuItems = [...document.querySelectorAll(".menu-item")];
-
 const svg = document.getElementById("energyArcs");
 
 const arcs = {
@@ -12,7 +11,7 @@ const arcs = {
   gallery: document.getElementById("arc-gallery")
 };
 
-/* ✅ create endpoint dots */
+/* ✅ endpoint glow dots */
 const dots = {};
 Object.keys(arcs).forEach(key => {
   const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -22,9 +21,9 @@ Object.keys(arcs).forEach(key => {
   dots[key] = dot;
 });
 
-/* ================= INTERACTION FIX ================= */
+/* ================= INTERACTION ================= */
 
-/* ✅ stop click-through closing */
+/* ✅ click outside closes */
 scene.addEventListener("click", e => {
   if (!e.target.closest(".menu-item") && !e.target.closest("#logoCore")) {
     scene.classList.remove("is-open");
@@ -43,7 +42,7 @@ logo.addEventListener("click", e => {
   }
 });
 
-/* ✅ menu clicks now work */
+/* ✅ menu items are ALWAYS clickable */
 menuItems.forEach(btn => {
   btn.addEventListener("click", e => {
     e.stopPropagation();
@@ -61,7 +60,7 @@ function positionMenu() {
   const cy = rect.top + rect.height / 2;
 
   const minDim = Math.min(window.innerWidth, window.innerHeight);
-  const radius = Math.min(minDim * 0.32, 320);
+  const radius = Math.min(minDim * 0.32, 320); // ✅ safe radius
 
   const layout = {
     squad: -90,
@@ -76,7 +75,7 @@ function positionMenu() {
   });
 }
 
-/* ================= SUPER‑NOVA TRAILS ================= */
+/* ================= ENERGY ARCS ================= */
 
 function drawArcs() {
   const a = logo.getBoundingClientRect();
@@ -85,6 +84,7 @@ function drawArcs() {
 
   menuItems.forEach(btn => {
     const b = btn.getBoundingClientRect();
+
     let x2 = b.left + b.width / 2;
     let y2 = b.top + b.height / 2;
 
@@ -92,11 +92,12 @@ function drawArcs() {
     const dy = y2 - y1;
     const len = Math.hypot(dx, dy) || 1;
 
-    /* ✅ pull arc back so it stops before text */
+    /* ✅ stop before label */
     const stopOffset = 56;
     x2 -= (dx / len) * stopOffset;
     y2 -= (dy / len) * stopOffset;
 
+    /* ✅ asymmetric supernova curve */
     const c1x = x1 + dx * 0.3 - dy * 0.4;
     const c1y = y1 + dy * 0.3 + dx * 0.4;
     const c2x = x1 + dx * 0.7 + dy * 0.3;
@@ -110,13 +111,13 @@ function drawArcs() {
          ${x2},${y2}`
     );
 
-    /* ✅ place glowing dot at endpoint */
+    /* ✅ endpoint dot */
     dots[btn.dataset.key].setAttribute("cx", x2);
     dots[btn.dataset.key].setAttribute("cy", y2);
   });
 }
 
-/* Recalculate on resize */
+/* ✅ recalc on resize */
 window.addEventListener("resize", () => {
   if (scene.classList.contains("is-open")) {
     positionMenu();
