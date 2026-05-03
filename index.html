@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GJ Titans | Official Website</title>
 
-  <link rel="icon" href="assets/images/logo.png" />
-  <link rel="stylesheet" href="assets/css/home-single.css" />
+  <!-- ✅ CORRECT CSS LOAD -->
+  <link rel="stylesheet" href="assets/css/home-single.css">
 </head>
 
 <body>
@@ -17,9 +17,14 @@
 
   <div class="scene-hint">CLICK LOGO</div>
 
-  <!-- ✅ FULLSCREEN SVG -->
+  <!-- ✅ SVG LAYER -->
   <svg class="energy-arcs" id="energyArcs">
     <defs>
+      <linearGradient id="energyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ffd27d"/>
+        <stop offset="100%" stop-color="#f5a623"/>
+      </linearGradient>
+
       <filter id="energyGlow">
         <feGaussianBlur stdDeviation="6" result="blur"/>
         <feMerge>
@@ -29,17 +34,17 @@
       </filter>
     </defs>
 
-    <path id="arc-squad"/>
-    <path id="arc-fixtures"/>
-    <path id="arc-gallery"/>
+    <path id="arc-squad"></path>
+    <path id="arc-fixtures"></path>
+    <path id="arc-gallery"></path>
   </svg>
 
-  <!-- Logo -->
+  <!-- ✅ LOGO -->
   <button class="logo-core" id="logoCore">
-    <img src="assets/images/logo.png" alt="GJ Titans"/>
+    <img src="assets/images/logo.png" alt="GJ Titans Logo">
   </button>
 
-  <!-- Menu -->
+  <!-- ✅ MENU -->
   <div class="radial-menu">
     <button class="menu-item" data-key="squad">🪖<span>SQUAD</span></button>
     <button class="menu-item" data-key="fixtures">📅<span>FIXTURES</span></button>
@@ -47,10 +52,11 @@
   </div>
 
   <div class="content-layer" id="contentLayer"></div>
-  <canvas id="particles"></canvas>
 
 </section>
 
+<!-- ✅ CORRECT JS LOAD -->
 <script src="assets/js/home-single.js"></script>
 </body>
 </html>
+``
