@@ -5,67 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GJ Titans | Official Website</title>
 
-  <link rel="icon" href="assets/images/logo.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/images/logo.png" />
-
-  <link rel="stylesheet" href="assets/css/home-single.css" />
+  <link rel="stylesheet" href="assets/css/home-single.css">
 </head>
 
 <body>
   <section class="scene" id="scene">
-    <div class="scene-bg" aria-hidden="true"></div>
-    <div class="scene-hint" aria-hidden="true">CLICK LOGO</div>
 
-    <!-- ✅ SVG must exist and must be fullscreen -->
-    <svg class="energy-arcs" id="energyArcs" aria-hidden="true">
-      <defs>
-        <filter id="energyGlow">
-          <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
-          <feMerge>
-            <feMergeNode in="blur"></feMergeNode>
-            <feMergeNode in="SourceGraphic"></feMergeNode>
-          </feMerge>
-        </filter>
+    <div class="scene-bg"></div>
+    <div class="scene-hint">CLICK LOGO</div>
 
-        <linearGradient id="grad-squad" gradientUnits="userSpaceOnUse"></linearGradient>
-        <linearGradient id="grad-fixtures" gradientUnits="userSpaceOnUse"></linearGradient>
-        <linearGradient id="grad-gallery" gradientUnits="userSpaceOnUse"></linearGradient>
-      </defs>
-
-      <path id="arc-squad"></path>
-      <path id="arc-fixtures"></path>
-      <path id="arc-gallery"></path>
-
-      <circle id="dot-squad" class="arc-dot"></circle>
-      <circle id="dot-fixtures" class="arc-dot"></circle>
-      <circle id="dot-gallery" class="arc-dot"></circle>
-    </svg>
-
-    <!-- Logo -->
-    <button class="logo-core" id="logoCore" type="button" aria-label="Open menu">
-      <img src="assets/images/logo.png" alt="GJ Titans logo" />
+    <!-- LOGO -->
+    <button class="logo-core" id="logoCore" type="button">
+      <img src="assets/images/logo.png" alt="GJ Titans Logo">
     </button>
 
-    <!-- Menu -->
-    <div class="radial-menu" id="radialMenu" aria-label="Main menu">
-      <button class="menu-item" data-key="squad" type="button">
-        <span class="mi-icon">🪖</span>
-        <span class="mi-text">SQUAD</span>
+    <!-- OPTIONS -->
+    <div class="radial-menu">
+      <button class="menu-item" data-key="squad">
+        <span class="icon">🪖</span>
+        <span class="label">SQUAD</span>
       </button>
 
-      <button class="menu-item" data-key="fixtures" type="button">
-        <span class="mi-icon">📅</span>
-        <span class="mi-text">FIXTURES</span>
+      <button class="menu-item" data-key="gallery">
+        <span class="icon">🖼️</span>
+        <span class="label">GALLERY</span>
       </button>
 
-      <button class="menu-item" data-key="gallery" type="button">
-        <span class="mi-icon">🖼️</span>
-        <span class="mi-text">GALLERY</span>
+      <button class="menu-item" data-key="fixtures">
+        <span class="icon">📅</span>
+        <span class="label">FIXTURES</span>
       </button>
     </div>
 
-    <!-- Optional overlay (kept minimal, doesn’t affect arcs) -->
-    <div class="content-layer" id="contentLayer" aria-hidden="true"></div>
   </section>
 
   <script src="assets/js/home-single.js"></script>
