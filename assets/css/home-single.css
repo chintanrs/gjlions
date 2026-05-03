@@ -14,7 +14,8 @@ html,body{
   background: radial-gradient(circle at 50% 45%, var(--bg2), var(--bg1));
 }
 
-/* Scene */
+/* ================= Scene ================= */
+
 .scene{
   position:relative;
   width:100%;
@@ -29,10 +30,10 @@ html,body{
     radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 40%),
     radial-gradient(circle at 80% 30%, rgba(255,255,255,0.04), transparent 45%),
     radial-gradient(circle at 50% 55%, rgba(245,166,35,0.08), transparent 55%);
-  filter: saturate(1.1);
 }
 
-/* Subtle hint */
+/* ================= Hint ================= */
+
 .scene-hint{
   position:absolute;
   top:22px;
@@ -45,7 +46,9 @@ html,body{
   z-index:5;
 }
 
-/* Logo */
+/* ================= Logo ================= */
+/* ✅ Slightly reduced size */
+
 .logo-core{
   position:absolute;
   left:50%;
@@ -54,12 +57,12 @@ html,body{
   background:none;
   border:none;
   cursor:pointer;
-  z-index:6;
+  z-index:6; /* ABOVE arcs */
 }
 
 .logo-core img{
-  width: min(820px, 92vw);
-  filter: drop-shadow(0 0 150px rgba(245,166,35,0.85));
+  width: min(720px, 88vw); /* ✅ reduced from ~820 */
+  filter: drop-shadow(0 0 140px rgba(245,166,35,0.85));
   animation: breathe 6s ease-in-out infinite;
 }
 
@@ -68,21 +71,22 @@ html,body{
   50%{ transform: scale(1.06); }
 }
 
-/* Menu container */
+/* ================= Menu ================= */
+
 .radial-menu{
   position:absolute;
   inset:0;
   pointer-events:none;
-  z-index:8; /* above arcs */
+  z-index:8; /* ✅ above logo */
 }
 
-/* Menu items: text + icon only (no circles) */
 .menu-item{
   position:absolute;
   left:50%;
   top:50%;
   transform: translate(-50%, -50%) scale(.6);
   opacity:0;
+
   background:none;
   border:none;
   color:#fff;
@@ -93,8 +97,8 @@ html,body{
   align-items:center;
   gap:10px;
 
-  font-weight: 900;
-  letter-spacing: .25em;
+  font-weight:900;
+  letter-spacing:.25em;
 
   transition:
     transform .55s cubic-bezier(.15,.9,.25,1),
@@ -102,29 +106,30 @@ html,body{
 }
 
 .menu-item .mi-icon{
-  font-size: 28px;
+  font-size:28px;
   filter: drop-shadow(0 0 12px rgba(245,166,35,0.25));
 }
 
 .menu-item .mi-text{
-  font-size: 1.35rem;
+  font-size:1.35rem;
 }
 
-/* Open state */
 .scene.is-open .menu-item{
   opacity:1;
   pointer-events:auto;
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* SVG arcs */
+/* ================= Energy Arcs ================= */
+/* ✅ Positioned BEHIND logo */
+
 .energy-arcs{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:7;
+  z-index:3; /* ✅ behind logo */
 }
 
 .energy-arcs path{
@@ -133,7 +138,6 @@ html,body{
   stroke-linecap:round;
   filter:url(#energyGlow);
 
-  /* flow */
   stroke-dasharray: 10 18;
   animation: dashFlow 1.9s linear infinite;
 
@@ -150,16 +154,18 @@ html,body{
   to{ stroke-dashoffset:-56; }
 }
 
-/* endpoint glow dot */
 .arc-dot{
   fill: var(--gold);
   filter: drop-shadow(0 0 12px rgba(245,166,35,0.95));
   opacity:0;
-  transition: opacity .25s ease;
 }
-.scene.is-open .arc-dot{ opacity:1; }
 
-/* Content overlay */
+.scene.is-open .arc-dot{
+  opacity:1;
+}
+
+/* ================= Overlay ================= */
+
 .content-layer{
   position:absolute;
   inset:0;
@@ -176,65 +182,19 @@ html,body{
   pointer-events:auto;
 }
 
-.content-close{
-  position:absolute;
-  top:18px;
-  right:18px;
-  width:44px;
-  height:44px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.18);
-  background: rgba(15,42,68,0.55);
-  color:#fff;
-  cursor:pointer;
-  font-size:20px;
-}
+/* ================= Mobile ================= */
 
-.content-inner{
-  max-width: 980px;
-  margin: 90px auto 0;
-  padding: 0 22px 30px;
-  color:#fff;
-}
-
-.content-inner h1{
-  margin:0 0 14px;
-  color: var(--gold);
-  font-size: 2.4rem;
-}
-
-.content-inner .subtle{
-  opacity:.8;
-  margin-bottom: 18px;
-}
-
-.card{
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 16px;
-  padding: 18px;
-  margin: 14px 0;
-}
-
-.list{
-  display:grid;
-  gap: 10px;
-}
-
-/* Particles */
-.particles{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:4;
-  pointer-events:none;
-}
-
-/* Mobile tightening */
 @media (max-width: 768px){
-  .logo-core img{ width: min(500px, 92vw); }
+  .logo-core img{
+    width: min(500px, 92vw);
+  }
 
-  .menu-item .mi-text{ font-size: 1.05rem; letter-spacing:.22em; }
-  .menu-item .mi-icon{ font-size: 24px; }
+  .menu-item .mi-text{
+    font-size:1.05rem;
+    letter-spacing:.22em;
+  }
+
+  .menu-item .mi-icon{
+    font-size:24px;
+  }
 }
