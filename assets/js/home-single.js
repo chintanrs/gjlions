@@ -138,4 +138,3 @@ async function loadContent(type) {
     content.innerHTML = `<h1>Gallery</h1><p>Coming soon.</p>`;
   }
 }
-``
