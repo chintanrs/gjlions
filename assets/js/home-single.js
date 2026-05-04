@@ -4,9 +4,9 @@ const items = [...document.querySelectorAll(".menu-item")];
 
 // Angles define the layout around the logo (tight, centered group)
 const layoutDeg = {
-  squad:   -90,  // top
-  gallery: 180,  // left
-  fixtures: 35   // bottom-right
+  squad:   -90,  // Directly above the logo
+  gallery: 180,  // Directly to the left
+  fixtures: 35   // Bottom-right quadrant
 };
 
 // Toggle menu
@@ -40,24 +40,26 @@ function positionItemsTight() {
   const cx = logoRect.left + logoRect.width / 2;
   const cy = logoRect.top + logoRect.height / 2;
 
-  // IMPORTANT:
-  // Many logos have transparent padding; using width/2 is too conservative.
-  // Use a smaller "visual radius" factor, then collision-check and expand only if needed.
-  const visualLogoRadius = logoRect.width * 0.40; // tighter than 0.50
-  const baseGap = 22; // small gap from logo edge (tight cluster)
+  /**
+   * ADJUSTMENT MADE HERE:
+   * We reduced visualLogoRadius from 0.40 to 0.25 to pull items closer to center.
+   * We reduced baseGap from 22 to 12 for a tighter cluster.
+   */
+  const visualLogoRadius = logoRect.width * 0.25; 
+  const baseGap = 12; 
 
-  // Start tight:
+  // Start with the tightest possible radius
   let radius = visualLogoRadius + baseGap;
 
   // Place items, then check overlap; expand radius minimally until no overlap.
-  // Max 10 iterations prevents infinite loops.
-  for (let step = 0; step < 10; step++) {
+  // Max 15 iterations for fine-tuned precision.
+  for (let step = 0; step < 15; step++) {
     placeAtRadius(cx, cy, radius);
 
     if (!anyOverlapsLogo(logoRect, baseGap)) {
-      break; // perfect: tight and no overlap
+      break; // Stop as soon as items are clear of the logo
     }
-    radius += 12; // expand slightly and try again
+    radius += 8; // Expand in small increments to maintain the "tight" look
   }
 }
 
@@ -84,6 +86,7 @@ function anyOverlapsLogo(logoRect, padding) {
 
   return items.some(item => {
     const r = item.getBoundingClientRect();
+    // Standard collision detection logic
     return !(r.right < L || r.left > R || r.bottom < T || r.top > B);
   });
 }
@@ -94,4 +97,3 @@ window.addEventListener("resize", () => {
     requestAnimationFrame(() => positionItemsTight());
   }
 });
-``
