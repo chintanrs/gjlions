@@ -2,80 +2,79 @@ const scene = document.getElementById("scene");
 const logo = document.getElementById("logoCore");
 const items = [...document.querySelectorAll(".menu-item")];
 
-// Angles define the layout around the logo
+/* Fixed layout angles (tight, centered cluster) */
 const layoutDeg = {
   squad:   -90,  // top
   gallery: 180,  // left
   fixtures: 35   // bottom-right
 };
 
-// Toggle menu
+/* Toggle menu */
 logo.addEventListener("click", (e) => {
   e.stopPropagation();
   scene.classList.toggle("is-open");
 
   if (scene.classList.contains("is-open")) {
+    // Wait one frame so layout + scale are applied
     requestAnimationFrame(() => {
-      positionItemsDynamic();
+      positionItemsTight();
     });
   }
 });
 
-// Close when clicking outside
+/* Close when clicking outside */
 scene.addEventListener("click", () => {
   scene.classList.remove("is-open");
 });
 
-items.forEach(btn => {
-  btn.addEventListener("click", (e) => {
+/* Prevent option clicks from closing menu */
+items.forEach(item => {
+  item.addEventListener("click", (e) => {
     e.stopPropagation();
-    console.log(`${btn.dataset.key} clicked`);
+    console.log(`${item.dataset.key} clicked`);
   });
 });
 
-function positionItemsDynamic() {
+/* ✅ FINAL, CORRECTED POSITIONING LOGIC */
+function positionItemsTight() {
   const logoRect = logo.getBoundingClientRect();
   const cx = logoRect.left + logoRect.width / 2;
   const cy = logoRect.top + logoRect.height / 2;
 
-  // 1. Get the smaller screen dimension (width or height)
-  const viewportMin = Math.min(window.innerWidth, window.innerHeight);
-
-  // 2. Set a dynamic starting radius. 
-  // On mobile, this will be much smaller than on a desktop.
-  let visualLogoRadius = logoRect.width * 0.28; 
-  let baseGap = viewportMin * 0.05; // 5% of screen size for a dynamic gap
+  /*
+    FIX (as you correctly identified):
+    - Use a much smaller visual radius
+    - Do NOT base it on 40–50% of logo width
+  */
+  const visualLogoRadius = logoRect.width * 0.25; // ✅ tight and stable
+  const baseGap = 15;                             // ✅ small breathing room
 
   let radius = visualLogoRadius + baseGap;
 
-  // 3. Prevent items from going off-screen (Max Radius check)
-  // We want to keep items within 45% of the screen center to avoid cropping.
-  const maxSafeRadius = (viewportMin / 2) * 0.85;
-
+  /*
+    Expand ONLY if something overlaps the logo.
+    This keeps the cluster as tight as physically possible.
+  */
   for (let step = 0; step < 15; step++) {
     placeAtRadius(cx, cy, radius);
 
-    // If it fits or we hit the screen edge safety limit, stop.
-    if (!anyOverlapsLogo(logoRect, 10) || radius >= maxSafeRadius) {
-      break; 
+    if (!anyOverlapsLogo(logoRect, baseGap)) {
+      break;
     }
-    radius += 5; // Smaller steps for better mobile precision
+    radius += 8; // small, controlled expansion
   }
 }
 
+/* Place items at a given radius */
 function placeAtRadius(cx, cy, radius) {
   items.forEach(item => {
-    const key = item.dataset.key;
-    const angle = (layoutDeg[key] * Math.PI) / 180;
-
-    const x = cx + Math.cos(angle) * radius;
-    const y = cy + Math.sin(angle) * radius;
-
-    item.style.left = `${x}px`;
-    item.style.top  = `${y}px`;
+    const angle = layoutDeg[item.dataset.key] * Math.PI / 180;
+    item.style.left = `${cx + Math.cos(angle) * radius}px`;
+    item.style.top  = `${cy + Math.sin(angle) * radius}px`;
   });
 }
 
+/* Collision check to prevent overlap */
 function anyOverlapsLogo(logoRect, padding) {
   const L = logoRect.left - padding;
   const T = logoRect.top - padding;
@@ -88,9 +87,11 @@ function anyOverlapsLogo(logoRect, padding) {
   });
 }
 
-// Re-calculate on resize or orientation change (crucial for mobile)
+/* Stay correct on resize */
 window.addEventListener("resize", () => {
   if (scene.classList.contains("is-open")) {
-    requestAnimationFrame(() => positionItemsDynamic());
+    requestAnimationFrame(() => {
+      positionItemsTight();
+    });
   }
 });
