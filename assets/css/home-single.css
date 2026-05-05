@@ -1,7 +1,11 @@
 :root{
   --bg1:#071a2f;
-  --bg2:#102c4f;
+  --bg2:#0c2a44;
   --gold:#f5a623;
+  --glass: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.14);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.70);
 }
 
 *{ box-sizing:border-box; }
@@ -11,70 +15,73 @@ html, body{
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family: system-ui, -apple-system, "Segoe UI";
+  font-family: system-ui, -apple-system, "Segoe UI", Arial;
+  background: radial-gradient(circle at center, var(--bg2), var(--bg1));
+  color: var(--text);
 }
 
 .scene{
   position:relative;
   width:100%;
   height:100%;
-  background: radial-gradient(circle at center, var(--bg2), var(--bg1));
+  isolation:isolate;
 }
 
-/* Hint */
+/* Subtle hint */
 .scene-hint{
   position:absolute;
-  top:16px;
+  top:14px;
   width:100%;
   text-align:center;
-  font-size:.65rem;
-  letter-spacing:.4em;
-  color:rgba(255,255,255,.35);
+  font-size:12px;
+  letter-spacing:4px;
+  color: rgba(255,255,255,0.35);
   pointer-events:none;
+  z-index:3;
 }
 
-/* LOGO */
+/* Logo (breathing stays) */
 .logo-core{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%);
+  transform: translate(-50%,-50%);
   background:none;
   border:none;
   cursor:pointer;
-  z-index:2;
+  z-index:5;
 }
 
 .logo-core img{
-  width:min(520px, 70vw);
-  filter:drop-shadow(0 0 90px rgba(245,166,35,.75));
-  animation:breathe 6s ease-in-out infinite;
+  width: min(520px, 70vw);
+  filter: drop-shadow(0 0 90px rgba(245,166,35,0.70));
+  animation: breathe 6s ease-in-out infinite;
 }
 
 @keyframes breathe{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.05); }
+  0%,100%{ transform: scale(1); }
+  50%{ transform: scale(1.05); }
 }
 
-/* MENU */
+/* Radial menu container */
 .radial-menu{
   position:absolute;
   inset:0;
+  z-index:6;
   pointer-events:none;
-  z-index:3;
 }
 
 .menu-item{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%) scale(.7);
+  transform: translate(-50%,-50%) scale(.7);
   opacity:0;
   pointer-events:none;
 
   background:none;
   border:none;
-  color:white;
+  color:#fff;
   cursor:pointer;
 
   display:flex;
@@ -82,39 +89,44 @@ html, body{
   align-items:center;
   gap:6px;
 
-  font-weight:700;
-  letter-spacing:.2em;
+  font-weight:800;
+  letter-spacing:3px;
+  text-transform:uppercase;
+
   transition:
-    transform .35s cubic-bezier(.2,.8,.2,1),
-    opacity .2s ease;
+    transform 0.35s cubic-bezier(.2,.8,.2,1),
+    opacity 0.2s ease;
 }
 
 .menu-item img{
   width:32px;
   height:32px;
+  display:block;
+  filter: drop-shadow(0 0 10px rgba(245,166,35,0.15));
 }
 
 .menu-item span{
-  font-size:.95rem;
+  font-size:0.95rem;
   white-space:nowrap;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.55);
 }
 
 .scene.is-open .menu-item{
   opacity:1;
   pointer-events:auto;
-  transform:translate(-50%,-50%) scale(1);
+  transform: translate(-50%,-50%) scale(1);
 }
 
-/* OVERLAY */
+/* Overlay */
 .overlay{
   position:absolute;
   inset:0;
-  background:rgba(7,26,47,.75);
-  backdrop-filter:blur(14px);
+  z-index:20;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(14px);
   opacity:0;
   pointer-events:none;
-  transition:.3s ease;
-  z-index:10;
+  transition: opacity 0.25s ease;
 }
 
 .overlay.active{
@@ -123,22 +135,127 @@ html, body{
 }
 
 .overlay-content{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:white;
-  max-width:90%;
-  text-align:center;
+  width: min(720px, calc(100vw - 32px));
+  margin: 56px auto 0;
+  padding: 22px 18px 18px;
+
+  background: rgba(7,26,47,0.55);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.65);
+  position: relative;
+
+  /* content scrolls inside overlay, logo stays behind */
+  max-height: calc(100vh - 96px);
+  overflow:auto;
 }
 
 .close-btn{
-  position:absolute;
-  top:-40px;
-  right:0;
+  position: sticky;
+  top: 10px;
+  float: right;
   background:none;
   border:none;
-  color:white;
-  font-size:24px;
+  color:#fff;
+  font-size: 26px;
   cursor:pointer;
+  opacity: 0.95;
+}
+
+.close-btn:hover{ opacity: 1; }
+
+#overlayBody h1{
+  margin: 8px 0 12px;
+  text-align:center;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+.section-title{
+  margin: 22px 0 12px;
+  text-align:center;
+  font-size: 1.35rem;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.muted{
+  text-align:center;
+  color: var(--muted);
+  margin: 0 0 16px;
+  font-size: 0.95rem;
+}
+
+/* Fixtures cards */
+.fixture-grid{
+  display:grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.fixture-card{
+  padding: 12px 14px;
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+}
+
+.fixture-meta{
+  font-weight: 900;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.fixture-line{
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.fixture-line strong{
+  color:#fff;
+  opacity:0.95;
+}
+
+hr.sep{
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  margin: 18px 0;
+}
+
+/* Squad list */
+.squad-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.role-header{
+  margin: 18px 0 8px;
+  text-transform: capitalize;
+  font-weight: 900;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.player-pill{
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.05);
+  display:flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.player-pill .name{ font-weight: 800; }
+.player-pill .role{ opacity: 0.75; text-transform: capitalize; }
+
+/* Mobile tuning (still radial around logo) */
+@media (max-width: 480px){
+  .logo-core img{
+    width: min(430px, 86vw);
+  }
+  .menu-item img{ width: 28px; height: 28px; }
+  .menu-item span{ font-size: 0.85rem; letter-spacing: 2px; }
+  #overlayBody h1{ font-size: 1.8rem; }
 }
