@@ -18,14 +18,15 @@ html, body{
   background: radial-gradient(circle at center, var(--bg2), var(--bg1));
 }
 
+/* Hint */
 .scene-hint{
   position:absolute;
-  top:20px;
+  top:16px;
   width:100%;
   text-align:center;
   font-size:.65rem;
   letter-spacing:.4em;
-  color:rgba(255,255,255,.3);
+  color:rgba(255,255,255,.35);
   pointer-events:none;
 }
 
@@ -42,11 +43,11 @@ html, body{
 }
 
 .logo-core img{
-  width:min(660px, 86vw);
-  filter:drop-shadow(0 0 120px rgba(245,166,35,.8));
+  width:min(600px, 80vw);
+  filter:drop-shadow(0 0 100px rgba(245,166,35,.8));
 }
 
-/* OPTIONS */
+/* MENU BASE */
 .radial-menu{
   position:absolute;
   inset:0;
@@ -56,50 +57,70 @@ html, body{
 
 .menu-item{
   position:absolute;
-
-  /* JS will set left/top in pixels */
   left:50%;
   top:50%;
-
-  transform:translate(-50%,-50%) scale(.6);
+  transform:translate(-50%,-50%) scale(.7);
   opacity:0;
   pointer-events:none;
 
   background:none;
   border:none;
   color:white;
+  font-size:1.05rem;
+  font-weight:700;
+  letter-spacing:.22em;
   cursor:pointer;
 
   display:flex;
-  flex-direction:column;
   align-items:center;
-  gap:8px;
-
-  font-weight:800;
-  letter-spacing:.22em;
+  gap:10px;
 
   transition:
-    transform 0.35s cubic-bezier(.2,.8,.2,1),
-    opacity 0.2s ease;
+    transform .3s ease,
+    opacity .2s ease;
 }
 
-.menu-item .icon{
-  font-size:26px;
+.menu-item span{
+  white-space:nowrap;
 }
 
-.menu-item .label{
-  font-size:1.15rem;
-}
-
-/* OPEN STATE */
 .scene.is-open .menu-item{
   opacity:1;
   pointer-events:auto;
   transform:translate(-50%,-50%) scale(1);
 }
 
-/* Mobile */
-@media (max-width:768px){
-  .logo-core img{ width:min(460px,92vw); }
-  .menu-item .label{ font-size:1rem; }
+/* ✅ MOBILE LAYOUT */
+@media (max-width: 768px){
+
+  .logo-core{
+    top:45%;
+  }
+
+  .logo-core img{
+    width:min(420px, 85vw);
+  }
+
+  .radial-menu{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+
+    top:calc(45% + 220px);
+    left:50%;
+    transform:translateX(-50%);
+  }
+
+  .menu-item{
+    position:static;
+    transform:none;
+    opacity:0;
+  }
+
+  .scene.is-open .menu-item{
+    opacity:1;
+    transform:none;
+  }
 }
+``
