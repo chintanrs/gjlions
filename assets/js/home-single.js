@@ -1,19 +1,19 @@
 const scene = document.getElementById("scene");
 const logo = document.getElementById("logoCore");
-const items = [...document.querySelectorAll(".menu-item")];
+const menuItems = [...document.querySelectorAll(".menu-item")];
 
 const overlay = document.getElementById("overlay");
 const overlayBody = document.getElementById("overlayBody");
 const closeOverlay = document.getElementById("closeOverlay");
 
-/* Radial angles */
+/* Keep menu around logo on all screen sizes */
 const angles = {
-  squad: -90,
-  gallery: 180,
-  fixtures: 35
+  squad:   -90,   // top
+  gallery: 180,   // left
+  fixtures: 35    // bottom-right
 };
 
-/* Toggle radial menu */
+/* Open/close radial menu */
 logo.addEventListener("click", (e) => {
   e.stopPropagation();
   scene.classList.toggle("is-open");
@@ -23,115 +23,144 @@ logo.addEventListener("click", (e) => {
   }
 });
 
-/* Close menu if clicking outside */
+/* Close radial menu on background click */
 scene.addEventListener("click", () => {
   scene.classList.remove("is-open");
 });
 
-/* Menu item click */
-items.forEach(item => {
-  item.addEventListener("click", (e) => {
+/* Menu item click -> open overlay */
+menuItems.forEach(btn => {
+  btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    openSection(item.dataset.key);
+    openOverlay(btn.dataset.key);
   });
 });
 
-/* Position radial menu */
-function positionRadialMenu() {
+/* Close overlay */
+closeOverlay.addEventListener("click", () => {
+  overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+});
+
+/* Positioning: same on desktop and mobile */
+function positionRadialMenu(){
   const r = logo.getBoundingClientRect();
   const cx = r.left + r.width / 2;
   const cy = r.top + r.height / 2;
 
   const minViewport = Math.min(window.innerWidth, window.innerHeight);
+
+  /* Tight but safe: capped, scales down on small screens */
   const radius = Math.min(180, minViewport * 0.32);
 
-  items.forEach(item => {
-    const angle = angles[item.dataset.key] * Math.PI / 180;
-    item.style.left = `${cx + Math.cos(angle) * radius}px`;
-    item.style.top  = `${cy + Math.sin(angle) * radius}px`;
+  menuItems.forEach(item => {
+    const a = (angles[item.dataset.key] * Math.PI) / 180;
+    const x = cx + Math.cos(a) * radius;
+    const y = cy + Math.sin(a) * radius;
+
+    item.style.left = `${x}px`;
+    item.style.top  = `${y}px`;
   });
 }
 
-/* ================= OVERLAY CONTENT ================= */
-
-async function openSection(type) {
+/* Overlay router */
+async function openOverlay(type){
   overlay.classList.add("active");
+  overlay.setAttribute("aria-hidden", "false");
   scene.classList.remove("is-open");
-  overlayBody.innerHTML = "<p>Loading…</p>";
+
+  overlayBody.innerHTML = `<p class="muted">Loading…</p>`;
 
   try {
     if (type === "gallery") {
       overlayBody.innerHTML = `
         <h1>Gallery</h1>
-        <p>Photos coming soon 📸</p>
+        <p class="muted">Photos coming soon 📸</p>
       `;
       return;
     }
 
     if (type === "squad") {
-      const res = await fetch("assets/data/squad.json");
-      if (!res.ok) throw new Error("squad.json not found");
+      const res = await fetch("data/squad.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("Could not load data/squad.json");
       const data = await res.json();
 
-      const groups = {};
-      data.items.forEach(p => {
-        if (!groups[p.role]) groups[p.role] = [];
-        groups[p.role].push(p.name);
+      // data.items: [{name, role}]
+      const grouped = {};
+      (data.items || []).forEach(p => {
+        const role = (p.role || "other").toLowerCase();
+        if (!grouped[role]) grouped[role] = [];
+        grouped[role].push(p.name);
       });
+
+      const roleOrder = ["batsman","allrounder","bowler","other"];
+      const roles = roleOrder.filter(r => grouped[r]).concat(
+        Object.keys(grouped).filter(r => !roleOrder.includes(r))
+      );
 
       overlayBody.innerHTML = `
         <h1>Squad</h1>
-        ${Object.keys(groups).map(role => `
-          <h2 style="margin-top:20px;text-transform:capitalize;">
-            ${role}
-          </h2>
-          <ul class="list">
-            ${groups[role].map(name => `<li>${name}</li>`).join("")}
-          </ul>
-        `).join("")}
+        <p class="muted">Tap ✕ to close</p>
+        <div class="squad-grid">
+          ${roles.map(role => `
+            <div class="role-header">${role}</div>
+            ${grouped[role].map(name => `
+              <div class="player-pill">
+                <span class="name">${name}</span>
+                <span class="role">${role}</span>
+              </div>
+            `).join("")}
+          `).join("")}
+        </div>
       `;
       return;
     }
 
     if (type === "fixtures") {
-      const res = await fetch("assets/data/fixtures.json");
-      if (!res.ok) throw new Error("fixtures.json not found");
+      const res = await fetch("data/fixtures.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("Could not load data/fixtures.json");
       const data = await res.json();
+
+      // data.tournaments: [{name, season, fixtures:[{date,time,teamA,teamB,venue}]}]
+      const tournaments = data.tournaments || [];
 
       overlayBody.innerHTML = `
         <h1>Fixtures</h1>
-        ${data.tournaments.map(t => `
-          <h2 style="margin-top:24px;">
-            ${t.name} ${t.season}
-          </h2>
-          <ul class="list">
-            ${t.fixtures.map(f => `
-              <li>
-                <strong>${f.date}</strong> • ${f.time}<br/>
-                ${f.teamA} vs ${f.teamB}<br/>
-                <span style="opacity:.75">${f.venue}</span>
-              </li>
+        <p class="muted">Tap ✕ to close</p>
+
+        ${tournaments.map((t, idx) => `
+          <div class="section-title">${t.name} ${t.season}</div>
+          <div class="fixture-grid">
+            ${(t.fixtures || []).map(f => `
+              <div class="fixture-card">
+                <div class="fixture-meta">
+                  ${f.date} • ${f.time}
+                </div>
+                <div class="fixture-line">
+                  <strong>${f.teamA}</strong> vs <strong>${f.teamB}</strong>
+                </div>
+                <div class="fixture-line">
+                  ${f.venue}
+                </div>
+              </div>
             `).join("")}
-          </ul>
+          </div>
+          ${idx < tournaments.length - 1 ? `<hr class="sep">` : ``}
         `).join("")}
       `;
     }
   } catch (err) {
     overlayBody.innerHTML = `
-      <h2>Error loading content</h2>
-      <p>${err.message}</p>
+      <h1>Error</h1>
+      <p class="muted">${err.message}</p>
     `;
   }
 }
 
-/* Close overlay */
-closeOverlay.addEventListener("click", () => {
-  overlay.classList.remove("active");
-});
-
-/* Recalculate on resize */
+/* Reposition on resize/orientation */
 window.addEventListener("resize", () => {
   if (scene.classList.contains("is-open")) {
     requestAnimationFrame(positionRadialMenu);
   }
 });
+``
