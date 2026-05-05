@@ -1,11 +1,10 @@
 :root{
   --bg1:#071a2f;
   --bg2:#102c4f;
+  --gold:#f5a623;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 html, body{
   margin:0;
@@ -49,6 +48,12 @@ html, body{
 .logo-core img{
   width:min(520px, 70vw);
   filter:drop-shadow(0 0 90px rgba(245,166,35,.75));
+  animation:breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.05); }
 }
 
 /* MENU */
@@ -100,14 +105,40 @@ html, body{
   transform:translate(-50%,-50%) scale(1);
 }
 
-/* Slightly tighter on very small phones */
-@media (max-width: 420px){
-  .menu-item img{
-    width:28px;
-    height:28px;
-  }
-  .menu-item span{
-    font-size:.85rem;
-  }
+/* OVERLAY */
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(7,26,47,.75);
+  backdrop-filter:blur(14px);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s ease;
+  z-index:10;
 }
-``
+
+.overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.overlay-content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:white;
+  max-width:90%;
+  text-align:center;
+}
+
+.close-btn{
+  position:absolute;
+  top:-40px;
+  right:0;
+  background:none;
+  border:none;
+  color:white;
+  font-size:24px;
+  cursor:pointer;
+}
