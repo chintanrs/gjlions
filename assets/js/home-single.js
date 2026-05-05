@@ -6,36 +6,37 @@ const overlay = document.getElementById("overlay");
 const overlayBody = document.getElementById("overlayBody");
 const closeOverlay = document.getElementById("closeOverlay");
 
-/* ANGLES (same for all screens) */
+/* Radial angles */
 const angles = {
   squad:   -90,
   gallery: 180,
   fixtures: 35
 };
 
-/* Open / close radial menu */
+/* Toggle radial menu */
 logo.addEventListener("click", (e) => {
   e.stopPropagation();
   scene.classList.toggle("is-open");
-  if(scene.classList.contains("is-open")){
+  if (scene.classList.contains("is-open")) {
     requestAnimationFrame(positionRadialMenu);
   }
 });
 
-/* Close menu if clicking outside */
+/* Close menu when clicking outside */
 scene.addEventListener("click", () => {
   scene.classList.remove("is-open");
 });
 
-/* MENU ITEM CLICK → OPEN OVERLAY */
+/* Menu item click */
 items.forEach(item => {
   item.addEventListener("click", (e) => {
     e.stopPropagation();
-    openOverlay(item.dataset.key);
+    openSection(item.dataset.key);
   });
 });
 
-/* POSITIONING LOGIC */
+/* ---------------- Positioning ---------------- */
+
 function positionRadialMenu(){
   const r = logo.getBoundingClientRect();
   const cx = r.left + r.width / 2;
@@ -43,10 +44,9 @@ function positionRadialMenu(){
 
   const minViewport = Math.min(window.innerWidth, window.innerHeight);
 
-  /* ✅ FINAL TUNED RADIUS */
   const radius = Math.min(
-    180,               // desktop cap (as you want)
-    minViewport * 0.32 // mobile auto-scale
+    180,                // desktop sweet spot
+    minViewport * 0.32  // mobile auto-scale
   );
 
   items.forEach(item => {
@@ -56,19 +56,51 @@ function positionRadialMenu(){
   });
 }
 
-/* OVERLAY CONTENT */
-function openOverlay(type){
-  overlay.classList.add("active");
-  scene.classList.remove("is-open");
+/* ---------------- Overlay Logic ---------------- */
 
-  if(type === "squad"){
-    overlayBody.innerHTML = "<h1>Squad</h1><p>Team squad details will go here.</p>";
+async function openSection(type){
+  scene.classList.remove("is-open");
+  overlay.classList.add("active");
+
+  if (type === "gallery") {
+    overlayBody.innerHTML = `
+      <h1>Gallery</h1>
+      <p>Match photos coming soon 📸</p>
+    `;
+    return;
   }
-  if(type === "gallery"){
-    overlayBody.innerHTML = "<h1>Gallery</h1><p>Photos coming soon.</p>";
+
+  if (type === "squad") {
+    const res = await fetch("assets/data/squad.json");
+    const data = await res.json();
+
+    overlayBody.innerHTML = `
+      <h1>${data.team} – Squad</h1>
+      <ul class="list">
+        ${data.players.map(p => `
+          <li><strong>${p.name}</strong> — ${p.role}</li>
+        `).join("")}
+      </ul>
+    `;
+    return;
   }
-  if(type === "fixtures"){
-    overlayBody.innerHTML = "<h1>Fixtures</h1><p>Match schedule will go here.</p>";
+
+  if (type === "fixtures") {
+    const res = await fetch("assets/data/fixtures.json");
+    const data = await res.json();
+
+    overlayBody.innerHTML = `
+      <h1>Fixtures</h1>
+      <ul class="list">
+        ${data.fixtures.map(f => `
+          <li>
+            <strong>${f.date}</strong><br/>
+            vs ${f.opponent}<br/>
+            ${f.venue} • ${f.time}
+          </li>
+        `).join("")}
+      </ul>
+    `;
   }
 }
 
@@ -77,9 +109,10 @@ closeOverlay.addEventListener("click", () => {
   overlay.classList.remove("active");
 });
 
-/* Recalculate on resize */
+/* Keep radial layout stable on resize */
 window.addEventListener("resize", () => {
-  if(scene.classList.contains("is-open")){
+  if (scene.classList.contains("is-open")) {
     requestAnimationFrame(positionRadialMenu);
   }
 });
+``
