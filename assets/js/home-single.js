@@ -6,16 +6,27 @@ const overlay = document.getElementById("overlay");
 const overlayBody = document.getElementById("overlayBody");
 const closeBtn = document.getElementById("closeOverlay");
 
-/* ✅ Updated angles: keep original feel, add About Us */
-const angles = {
-  squad: -45,
-  gallery: 45,
-  fixtures: 135,
-  about: 225
-};
+/* Close overlay */
+closeBtn.addEventListener("click", () => {
+  overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+});
 
+/* ---- Perfect dial angles (auto) ----
+   Order defines positions around the dial:
+   Top → Right → Bottom → Left (clockwise)
+*/
+const dialOrder = ["squad", "fixtures", "gallery", "about"];
+const angleMap = (() => {
+  const n = dialOrder.length;
+  const start = -90; // top
+  const step = 360 / n;
+  const map = {};
+  dialOrder.forEach((key, i) => (map[key] = start + i * step));
+  return map;
+})();
 
-/* Menu open/close */
+/* Menu open/close (safe bubbling) */
 logo.addEventListener("click", (e) => {
   e.stopPropagation();
   scene.classList.toggle("is-open");
@@ -26,12 +37,6 @@ logo.addEventListener("click", (e) => {
 
 scene.addEventListener("click", () => {
   scene.classList.remove("is-open");
-});
-
-/* Close overlay */
-closeBtn.addEventListener("click", () => {
-  overlay.classList.remove("active");
-  overlay.setAttribute("aria-hidden", "true");
 });
 
 /* Menu item click -> open overlay */
@@ -49,7 +54,6 @@ function positionMenu(){
   const cy = r.top + r.height / 2;
 
   const isMobile = window.innerWidth <= 480;
-
   const radius = Math.min(
     isMobile ? 260 : 240,
     Math.min(innerWidth, innerHeight) * (isMobile ? 0.38 : 0.32)
@@ -57,35 +61,27 @@ function positionMenu(){
 
   menuItems.forEach(item => {
     const key = item.dataset.key;
-    const a = (angles[key] ?? 0) * Math.PI / 180;
+    const deg = angleMap[key] ?? 0;
+    const a = deg * Math.PI / 180;
     item.style.left = `${cx + Math.cos(a) * radius}px`;
     item.style.top  = `${cy + Math.sin(a) * radius}px`;
   });
 }
 
-/* Reposition on rotate/resize safely */
+/* Reposition on rotate/resize */
 window.addEventListener("resize", () => {
   if (scene.classList.contains("is-open")) {
     requestAnimationFrame(positionMenu);
   }
 });
 
-/* ---------------- Fixtures drill-down state (unchanged) ---------------- */
+/* ---------------- Fixtures drill-down ---------------- */
 let fixturesCache = null;
-let fixturesState = {
-  level: "tournaments",
-  tournamentIndex: null,
-  matchIndex: null
-};
+let fixturesState = { level: "tournaments", tournamentIndex: null, matchIndex: null };
 
-/* ---------------- Squad state (unchanged) ---------------- */
+/* ---------------- Squad state ---------------- */
 let squadCache = null;
-let squadState = {
-  view: "list",
-  query: "",
-  selectedIndex: null,
-  scrollTop: 0
-};
+let squadState = { query:"", selectedIndex:null, scrollTop:0 };
 
 async function openOverlay(type){
   overlay.classList.add("active");
@@ -93,81 +89,60 @@ async function openOverlay(type){
   scene.classList.remove("is-open");
   overlayBody.innerHTML = `<p class="subtext">Loading…</p>`;
 
-  if (type === "about"){
-    renderAbout();
-    return;
-  }
+  if (type === "about"){ renderAbout(); return; }
 
   if (type === "gallery"){
     overlayBody.innerHTML = `
       <div class="fade-in">
-        <div class="overlay-header">
-          <h1 class="overlay-title">Gallery</h1>
-        </div>
+        <div class="overlay-header"><h1 class="overlay-title">Gallery</h1></div>
         <p class="subtext">Photos coming soon 📸</p>
-      </div>
-    `;
+      </div>`;
     return;
   }
 
   if (type === "fixtures"){
-    fixturesState = { level: "tournaments", tournamentIndex: null, matchIndex: null };
-    try{
-      fixturesCache = await fetch("assets/data/fixtures.json", { cache: "no-store" }).then(r => r.json());
-      renderFixturesStep1();
-    }catch{
-      overlayBody.innerHTML = `<p class="subtext">Could not load fixtures.json</p>`;
-    }
+    fixturesState = { level:"tournaments", tournamentIndex:null, matchIndex:null };
+    fixturesCache = await fetch("assets/data/fixtures.json", { cache:"no-store" }).then(r=>r.json());
+    renderFixturesStep1();
     return;
   }
 
   if (type === "squad"){
-    try{
-      if (!squadCache){
-        squadCache = await fetch("assets/data/squad.json", { cache: "no-store" }).then(r => r.json());
-      }
-      squadState.view = "list";
-      squadState.selectedIndex = null;
-      squadState.scrollTop = 0;
-      squadState.query = "";
-      renderSquadList();
-    }catch{
-      overlayBody.innerHTML = `<p class="subtext">Could not load squad.json</p>`;
+    if (!squadCache){
+      squadCache = await fetch("assets/data/squad.json", { cache:"no-store" }).then(r=>r.json());
     }
+    squadState.query = "";
+    squadState.selectedIndex = null;
+    squadState.scrollTop = 0;
+    renderSquadList();
     return;
   }
 }
 
-/* ================== ABOUT US (NEW) ================== */
+/* ===== About Us ===== */
 function renderAbout(){
   overlayBody.innerHTML = `
-    <div class="fade-in about-wrap">
-      <h1 class="about-h1">Our Roots</h1>
+    <div class="fade-in">
+      <div class="overlay-header"><h1 class="overlay-title">Our Roots</h1></div>
 
-      <p class="about-p">
+      <p class="subtext">
         We’re a group of friends in the GTA — born and raised in India — and cricket has always been part of our heritage and our DNA.
       </p>
-
-      <p class="about-p">
+      <p class="subtext">
         No big speeches. No corporate mission statements. Just the same love for the game we grew up with — the sound of the bat, the late-night matches, and the bond that comes from playing together.
       </p>
-
-      <p class="about-p">
-        We play for the sport and the community it creates. For the brotherhood. For the competition. For the simple joy of turning up, fighting for every run, and respecting the game.
+      <p class="subtext">
+        We play for the sport and the community it creates — for the brotherhood, the competition, and the simple joy of turning up and respecting the game.
       </p>
 
-      <h2 class="about-h2">Toronto meets India</h2>
-
-      <div class="about-image-slot">
-        <strong>Photo Slot</strong><br />
-        Add a high-quality team photo or a “Toronto meets India” themed graphic here.
+      <div class="detail-card" style="margin-top:14px;">
+        <div class="detail-label">Imagery</div>
+        <div class="detail-value">Add a high-quality team photo or a “Toronto meets India” themed graphic here.</div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-/* ================== FIXTURES (existing 3-tier drill-down) ================== */
-
+/* ===== Fixtures Step 1 ===== */
 function renderFixturesStep1(){
   const tournaments = fixturesCache?.tournaments || [];
 
@@ -183,7 +158,7 @@ function renderFixturesStep1(){
           <div class="card" data-tournament-index="${idx}">
             <div class="card-top">
               <div class="card-left">
-                assets/images/trophy.png
+                <img class="card-icon" src="assets/images/trophy.png" alt="">
                 <div>
                   <p class="card-title">${t.name}</p>
                   <p class="card-meta">${t.season}</p>
@@ -206,6 +181,7 @@ function renderFixturesStep1(){
   });
 }
 
+/* ===== Fixtures Step 2 ===== */
 function renderFixturesStep2(){
   const t = fixturesCache.tournaments[fixturesState.tournamentIndex];
   const fixtures = t.fixtures || [];
@@ -223,20 +199,14 @@ function renderFixturesStep2(){
         ${fixtures.map((f, idx) => `
           <div class="card" data-match-index="${idx}">
             <div class="card-title">${f.teamA} vs ${f.teamB}</div>
-            <div class="card-meta">
-              <span class="match-time">${f.date} • ${f.time}</span>
-            </div>
+            <div class="card-meta"><span class="match-time">${f.date} • ${f.time}</span></div>
           </div>
         `).join("")}
       </div>
     </div>
   `;
 
-  overlayBody.querySelector("#backToTournaments").addEventListener("click", () => {
-    fixturesState.level = "tournaments";
-    fixturesState.tournamentIndex = null;
-    renderFixturesStep1();
-  });
+  overlayBody.querySelector("#backToTournaments").addEventListener("click", () => renderFixturesStep1());
 
   overlayBody.querySelectorAll("[data-match-index]").forEach(card => {
     card.addEventListener("click", () => {
@@ -247,6 +217,7 @@ function renderFixturesStep2(){
   });
 }
 
+/* ===== Fixtures Step 3 ===== */
 function renderFixturesStep3(){
   const t = fixturesCache.tournaments[fixturesState.tournamentIndex];
   const f = t.fixtures[fixturesState.matchIndex];
@@ -264,12 +235,10 @@ function renderFixturesStep3(){
           <div class="detail-label">Teams</div>
           <div class="detail-value">${f.teamA} vs ${f.teamB}</div>
         </div>
-
         <div class="detail-row">
           <div class="detail-label">Date & Time</div>
           <div class="detail-value">${f.date} • ${f.time}</div>
         </div>
-
         <div class="detail-row">
           <div class="detail-label">Venue</div>
           <div class="detail-value">${f.venue}</div>
@@ -278,18 +247,11 @@ function renderFixturesStep3(){
     </div>
   `;
 
-  overlayBody.querySelector("#backToMatches").addEventListener("click", () => {
-    fixturesState.level = "matches";
-    fixturesState.matchIndex = null;
-    renderFixturesStep2();
-  });
+  overlayBody.querySelector("#backToMatches").addEventListener("click", () => renderFixturesStep2());
 }
 
-/* ================== SQUAD (existing redesign) ================== */
-/* NOTE: your squad rendering functions remain exactly as in your working version.
-   If you already have them below in your current file, KEEP them.
-   If you want, I can paste the entire squad section again in one go.
-*/
+/* ================== Squad (search + detail) ================== */
+function normalized(str=""){ return String(str).toLowerCase().trim(); }
 function getFirstName(name=""){
   const parts = String(name).trim().split(/\s+/);
   return (parts[0] || "").toLowerCase();
@@ -300,7 +262,6 @@ function initialsFromName(name=""){
   const b = parts[1]?.[0] || "";
   return (a + b).toUpperCase() || (parts[0]?.slice(0,2).toUpperCase() || "GT");
 }
-function normalized(str=""){ return String(str).toLowerCase().trim(); }
 function escapeHtml(str=""){
   return String(str)
     .replaceAll("&", "&amp;")
@@ -320,9 +281,6 @@ function getSortedPlayers(){
 }
 
 function renderSquadList(){
-  squadState.view = "list";
-  squadState.selectedIndex = null;
-
   const all = getSortedPlayers();
   const q = normalized(squadState.query);
   const filtered = q ? all.filter(p => normalized(p.name).includes(q)) : all;
@@ -356,7 +314,7 @@ function renderSquadList(){
   const clear2 = overlayBody.querySelector("#clearSearch2");
 
   input.addEventListener("input", () => {
-    const cursorPos = input.selectionStart;   // ✅ caret preservation
+    const cursorPos = input.selectionStart;
     squadState.query = input.value;
     renderSquadList();
     const newInput = overlayBody.querySelector("#squadSearch");
@@ -372,22 +330,16 @@ function renderSquadList(){
 
   overlayBody.querySelectorAll("[data-player-index]").forEach(el => {
     el.addEventListener("click", () => {
-      squadState.scrollTop = document.querySelector(".overlay-content")?.scrollTop || 0;
       squadState.selectedIndex = Number(el.dataset.playerIndex);
       renderSquadDetail();
     });
   });
-
-  const oc = document.querySelector(".overlay-content");
-  if (oc) oc.scrollTop = squadState.scrollTop || 0;
 }
 
 function renderPlayerCard(p, idx){
-  const avatar = p.avatar ? `
-    <div class="avatar">${p.avatar}</div>
-  ` : `
-    <div class="avatar"><div class="initials">${initialsFromName(p.name)}</div></div>
-  `;
+  const avatar = p.avatar
+    ? `<div class="avatar"><img src="${p.avatar}" alt=""></div>`
+    : `<div class="avatar"><div class="initials">${initialsFromName(p.name)}</div></div>`;
 
   return `
     <div class="card player-card" data-player-index="${idx}">
@@ -399,8 +351,6 @@ function renderPlayerCard(p, idx){
 }
 
 function renderSquadDetail(){
-  squadState.view = "detail";
-
   const all = getSortedPlayers();
   const q = normalized(squadState.query);
   const filtered = q ? all.filter(p => normalized(p.name).includes(q)) : all;
@@ -412,11 +362,9 @@ function renderSquadDetail(){
   const bowlingStyle = player.bowlingStyle || "Not provided";
   const bio = player.bio || "Not provided";
 
-  const avatar = player.avatar ? `
-    <div class="avatar">${player.avatar}</div>
-  ` : `
-    <div class="avatar"><div class="initials">${initialsFromName(player.name)}</div></div>
-  `;
+  const avatar = player.avatar
+    ? `<div class="avatar"><img src="${player.avatar}" alt=""></div>`
+    : `<div class="avatar"><div class="initials">${initialsFromName(player.name)}</div></div>`;
 
   overlayBody.innerHTML = `
     <div class="fade-in">
@@ -426,7 +374,7 @@ function renderSquadDetail(){
         <div style="width:72px;"></div>
       </div>
 
-      <div class="detail-card player-detail">
+      <div class="detail-card">
         ${avatar}
 
         <div class="detail-row">
