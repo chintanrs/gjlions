@@ -97,7 +97,7 @@ async function openOverlay(type){
           <div class="overlay-header">
             <h1 class="overlay-title">Squad</h1>
           </div>
-          <p class="subtext">Team roster (data-driven)</p>
+          <p class="subtext">Team Roster</p>
           <div class="card-grid">
             ${data.items.map(p => `
               <div class="card" style="cursor:default;">
