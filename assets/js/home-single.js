@@ -8,11 +8,12 @@ const closeBtn = document.getElementById("closeOverlay");
 
 /* ✅ Updated angles: keep original feel, add About Us */
 const angles = {
-  squad: -90,       // top
-  gallery: 180,     // left
-  fixtures: 35,     // bottom-right
-  about: 235        // bottom-left (balances the dial)
+  squad: -90,
+  gallery: 180,
+  fixtures: 35,
+  about: 235
 };
+
 
 /* Menu open/close */
 logo.addEventListener("click", (e) => {
