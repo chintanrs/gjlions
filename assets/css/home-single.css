@@ -318,7 +318,7 @@ html,body{
 /* Mobile tightening */
 @media (max-width: 480px){
   .logo-core img{ width: min(430px, 86vw); }
-  .menu-item img{ width:28px; height:28px; }
-  .menu-item span{ font-size: .8rem; letter-spacing: 2px; }
+  .menu-item img{ width:32px; height:32px; }
+  .menu-item span{ font-size: 1.0rem; letter-spacing: 0px; }
   .overlay-title{ font-size: 1.6rem; }
 }
