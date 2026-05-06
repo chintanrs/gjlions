@@ -47,7 +47,13 @@ function positionMenu(){
   const cx = r.left + r.width / 2;
   const cy = r.top + r.height / 2;
 
-  const radius = Math.min(240, Math.min(innerWidth, innerHeight) * 0.32);
+  const isMobile = window.innerWidth <= 480;
+
+  const radius = Math.min(
+    isMobile ? 260 : 240,                 // ⬅ more space on mobile
+    Math.min(innerWidth, innerHeight) *
+      (isMobile ? 0.38 : 0.32)            // ⬅ looser scaling on mobile
+  );
 
   menuItems.forEach(item => {
     const a = angles[item.dataset.key] * Math.PI / 180;
