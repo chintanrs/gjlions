@@ -137,7 +137,7 @@ function renderFixturesStep1(){
           <div class="card" data-tournament-index="${idx}">
             <div class="card-top">
               <div class="card-left">
-                <img class="card-icon" src="assets/images/fixtures.png" alt="">
+                <img class="card-icon" src="assets/images/trophy.png" alt="">
                 <div>
                   <p class="card-title">${t.name}</p>
                   <p class="card-meta">${t.season}</p>
