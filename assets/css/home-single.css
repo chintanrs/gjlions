@@ -94,8 +94,8 @@ html,body{
   align-items:center;
   gap:6px;
 
-  letter-spacing:2px;
-  text-transform:uppercase;
+  letter-spacing:0px;
+  text-transform:capitalize;
   color:#fff;
 
   transition:
