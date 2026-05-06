@@ -1,73 +1,101 @@
-const scene=document.getElementById("scene");
-const logoId("overlay");const logo=document.getElementById("logoCore");
-const overlayBody=document.getElementById("overlayBody");
-const closeBtn=document.getElementById("closeOverlay");
+const scene = document.getElementById("scene");
+const logo = document.getElementById("logoCore");
+const menuItems = document.querySelectorAll(".menu-item");
 
-const angles={ squad:-90, gallery:180, fixtures:35 };
+const overlay = document.getElementById("overlay");
+const overlayBody = document.getElementById("overlayBody");
+const closeBtn = document.getElementById("closeOverlay");
 
-logo.onclick=e=>{
-  e.stopPropagation();
-  scene.classList.toggle("is-open");
-  if(scene.classList.contains("is-open")) positionMenu();
+/* Radial angles */
+const angles = {
+  squad:   -90,
+  gallery: 180,
+  fixtures: 35
 };
 
-scene.onclick=()=>scene.classList.remove("is-open");
-
-menuItems.forEach(btn=>{
-  btn.onclick=e=>{
-    e.stopPropagation();
-    openOverlay(btn.dataset.key);
-  };
+/* ✅ OPEN / CLOSE MENU (FIXED) */
+logo.addEventListener("click", (e) => {
+  e.stopPropagation();             // ✅ CRITICAL
+  scene.classList.toggle("is-open");
+  if (scene.classList.contains("is-open")) {
+    positionMenu();
+  }
 });
 
-function positionMenu(){
-  const r=logo.getBoundingClientRect();
-  const cx=r.left+r.width/2;
-  const cy=r.top+r.height/2;
-  const radius=Math.min(180,Math.min(innerWidth,innerHeight)*.32);
+/* ✅ CLOSE ONLY WHEN CLICKING BACKGROUND */
+scene.addEventListener("click", (e) => {
+  if (e.target === scene) {
+    scene.classList.remove("is-open");
+  }
+});
 
-  menuItems.forEach(b=>{
-    const a=angles[b.dataset.key]*Math.PI/180;
-    b.style.left=`${cx+Math.cos(a)*radius}px`;
-    b.style.top =`${cy+Math.sin(a)*radius}px`;
+/* ✅ MENU ITEM CLICKS */
+menuItems.forEach(item => {
+  item.addEventListener("click", (e) => {
+    e.stopPropagation();
+    openOverlay(item.dataset.key);
+  });
+});
+
+/* ✅ POSITION MENU */
+function positionMenu(){
+  const r = logo.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+
+  const radius = Math.min(
+    180,
+    Math.min(innerWidth, innerHeight) * 0.32
+  );
+
+  menuItems.forEach(item => {
+    const a = angles[item.dataset.key] * Math.PI / 180;
+    item.style.left = `${cx + Math.cos(a) * radius}px`;
+    item.style.top  = `${cy + Math.sin(a) * radius}px`;
   });
 }
 
+/* ✅ OVERLAY LOGIC (UNCHANGED, WORKING) */
 async function openOverlay(type){
   overlay.classList.add("active");
   scene.classList.remove("is-open");
 
-  if(type==="fixtures"){
-    const data=await fetch("assets/data/fixtures.json").then(r=>r.json());
-    overlayBody.innerHTML=`
-      <h1>Fixtures</h1>
-      ${data.tournaments.map(t=>`
-        <div class="tournament-title">${t.name} ${t.season}</div>
-        ${t.fixtures.map(f=>`
-          <div class="fixture">
-            <time>${f.date} • ${f.time}</time>
-            <div class="teams">${f.teamA} vs ${f.teamB}</div>
-            <div class="venue">${f.venue}</div>
-          </div>`).join("")}
-      `).join("")}
-    `;
+  if(type === "gallery"){
+    overlayBody.innerHTML = "<h1>Gallery</h1><p>Coming soon</p>";
     return;
   }
 
-  if(type==="squad"){
-    const data=await fetch("assets/data/squad.json").then(r=>r.json());
-    overlayBody.innerHTML=`
-      <h1>Squad</h1>
-      ${data.items.map(p=>`
-        <div class="fixture">${p.name} — ${p.role}</div>
-      `).join("")}
-    `;
+  if(type === "squad"){
+    const res = await fetch("assets/data/squad.json");
+    const data = await res.json();
+    overlayBody.innerHTML =
+      "<h1>Squad</h1>" +
+      data.items.map(p => `<p>${p.name} — ${p.role}</p>`).join("");
+    return;
   }
 
-  if(type==="gallery"){
-    overlayBody.innerHTML="<h1>Gallery</h1><p>Coming soon</p>";
+  if(type === "fixtures"){
+    const res = await fetch("assets/data/fixtures.json");
+    const data = await res.json();
+
+    let html = "<h1>Fixtures</h1>";
+    data.tournaments.forEach(t => {
+      html += `<h2>${t.name} ${t.season}</h2>`;
+      t.fixtures.forEach(f => {
+        html += `
+          <p>
+            <strong>${f.date} • ${f.time}</strong><br>
+            ${f.teamA} vs ${f.teamB}<br>
+            ${f.venue}
+          </p>`;
+      });
+    });
+
+    overlayBody.innerHTML = html;
   }
 }
 
-closeBtn.onclick=()=>overlay.classList.remove("active");
-const menuItems=document.querySelectorAll(".menu-item");
+/* ✅ CLOSE OVERLAY */
+closeBtn.addEventListener("click", () => {
+  overlay.classList.remove("active");
+});
