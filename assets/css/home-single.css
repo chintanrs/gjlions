@@ -2,6 +2,8 @@
   --bg1:#071a2f;
   --bg2:#0c2a44;
   --gold:#f5a623;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.7);
 }
 
 *{ box-sizing:border-box; }
@@ -11,9 +13,9 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  font-family: system-ui, -apple-system, "Segoe UI";
-  background: radial-gradient(circle at center, var(--bg2), var(--bg1));
-  color:#fff;
+  font-family:system-ui,-apple-system,"Segoe UI";
+  background:radial-gradient(circle at center,var(--bg2),var(--bg1));
+  color:var(--text);
 }
 
 .scene{
@@ -22,7 +24,7 @@ html,body{
   height:100%;
 }
 
-/* Hint */
+/* ===== Hint ===== */
 .scene-hint{
   position:absolute;
   top:14px;
@@ -30,11 +32,11 @@ html,body{
   text-align:center;
   font-size:12px;
   letter-spacing:4px;
-  opacity:.45;
+  opacity:.4;
   pointer-events:none;
 }
 
-/* LOGO */
+/* ===== Logo ===== */
 .logo-core{
   position:absolute;
   top:50%;
@@ -49,13 +51,12 @@ html,body{
 .logo-core img{
   width:min(520px,75vw);
 
-  /* breathing */
   animation:breathe 6s ease-in-out infinite;
 
-  /* ✅ GLOW (restored) */
+  /* ✅ Glow restored */
   filter:
-    drop-shadow(0 0 30px rgba(245,166,35,0.45))
-    drop-shadow(0 0 80px rgba(245,166,35,0.25));
+    drop-shadow(0 0 30px rgba(245,166,35,.45))
+    drop-shadow(0 0 90px rgba(245,166,35,.25));
 }
 
 @keyframes breathe{
@@ -63,7 +64,7 @@ html,body{
   50%{ transform:scale(1.05); }
 }
 
-/* RADIAL MENU */
+/* ===== Radial Menu ===== */
 .radial-menu{
   position:absolute;
   inset:0;
@@ -82,8 +83,6 @@ html,body{
   background:none;
   border:none;
   padding:0;
-
-  color:#fff;
   cursor:pointer;
 
   display:flex;
@@ -91,24 +90,22 @@ html,body{
   align-items:center;
   gap:6px;
 
-  font-weight:700;
   letter-spacing:2px;
   text-transform:uppercase;
+  color:#fff;
 
   transition:
     transform .35s cubic-bezier(.2,.8,.2,1),
-    opacity .2s ease;
+    opacity .25s ease;
 }
 
 .menu-item img{
   width:32px;
-  height:32px;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+  filter:drop-shadow(0 0 12px rgba(255,255,255,.25));
 }
 
 .menu-item span{
-  font-size:.9rem;
-  white-space:nowrap;
+  font-size:.85rem;
 }
 
 .scene.is-open .menu-item{
@@ -117,11 +114,11 @@ html,body{
   transform:translate(-50%,-50%) scale(1);
 }
 
-/* OVERLAY */
+/* ===== Overlay ===== */
 .overlay{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.6);
+  background:rgba(0,0,0,.65);
   backdrop-filter:blur(14px);
   opacity:0;
   pointer-events:none;
@@ -136,18 +133,46 @@ html,body{
 
 .overlay-content{
   max-width:720px;
-  margin:56px auto 0;
-  padding:20px;
-  max-height:calc(100vh - 96px);
+  margin:60px auto 0;
+  padding:20px 24px;
+  max-height:calc(100vh - 100px);
   overflow:auto;
 }
 
 .close-btn{
   background:none;
   border:none;
-  font-size:26px;
   color:#fff;
+  font-size:26px;
   cursor:pointer;
   float:right;
 }
-``
+
+/* ===== Overlay typography ===== */
+#overlayBody h1{
+  margin:0 0 14px;
+  font-size:2.2rem;
+}
+
+.tournament-title{
+  margin:26px 0 12px;
+  font-size:1.4rem;
+  font-weight:700;
+}
+
+.fixture{
+  margin-bottom:16px;
+}
+
+.fixture time{
+  font-weight:600;
+}
+
+.fixture .teams{
+  font-weight:500;
+}
+
+.fixture .venue{
+  color:var(--muted);
+  font-size:.95rem;
+}
