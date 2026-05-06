@@ -5,48 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GJ Titans | Official Website</title>
 
-  <!-- ✅ CORRECT PATH (assets/) -->
-  <link rel="stylesheet" href="assets/css/home-single.css">
+  <!-- ✅ CSS -->
+  <link rel="stylesheet" href="assets/css/home-single.css" />
 </head>
 
 <body>
-
 <section class="scene" id="scene">
+
   <div class="scene-hint">CLICK LOGO</div>
 
-  <!-- LOGO -->
-  <button class="logo-core" id="logoCore" type="button">
+  <!-- ✅ LOGO -->
+  <button class="logo-core" id="logoCore" type="button" aria-label="Open menu">
     <img src="assets/images/logo.png" alt="GJ Titans Logo">
   </button>
 
-  <!-- RADIAL MENU -->
+  <!-- ✅ RADIAL MENU -->
   <div class="radial-menu">
-    <button class="menu-item" data-key="squad">
+    <button class="menu-item" data-key="squad" type="button">
       <img src="assets/images/squad.png" alt="Squad">
       <span>SQUAD</span>
     </button>
 
-    <button class="menu-item" data-key="gallery">
+    <button class="menu-item" data-key="gallery" type="button">
       <img src="assets/images/gallery.png" alt="Gallery">
       <span>GALLERY</span>
     </button>
 
-    <button class="menu-item" data-key="fixtures">
+    <button class="menu-item" data-key="fixtures" type="button">
       <img src="assets/images/fixtures.png" alt="Fixtures">
       <span>FIXTURES</span>
     </button>
   </div>
 
-  <!-- OVERLAY -->
+  <!-- ✅ CONTENT OVERLAY -->
   <div class="overlay" id="overlay">
     <div class="overlay-content">
-      <button class="close-btn" id="closeOverlay">✕</button>
+      <button class="close-btn" id="closeOverlay" type="button">✕</button>
       <div id="overlayBody"></div>
     </div>
   </div>
+
 </section>
 
-<!-- ✅ CORRECT JS PATH -->
+<!-- ✅ JS -->
 <script src="assets/js/home-single.js"></script>
 </body>
 </html>
