@@ -1,23 +1,142 @@
 {
   "items": [
-    { "name": "Deep", "role": "batsman" },
-    { "name": "Darshan", "role": "batsman" },
-    { "name": "Swapnil", "role": "batsman" },
-    { "name": "Guddu", "role": "batsman" },
+    {
+      "name": "Deep Bhatt",
+      "role": "Batsman",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Powerplay specialist known for aggressive starts and boundary hitting.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Darshan Morodiya",
+      "role": "Batsman",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Offbreak",
+      "bio": "Reliable middle-order presence with strong shot selection.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Swapnil Patel",
+      "role": "Allrounder",
+      "battingStyle": "Left Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Technically sound opener with the ability to anchor innings.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Chaitanya Jain",
+      "role": "Batsman",
+      "battingStyle": "Left Handed Bat",
+      "bowlingStyle": "Left Arm Medium",
+      "bio": "Explosive finisher capable of changing the game in final overs.",
+      "avatar": "assets/images/players/player.png"
+    },
 
-    { "name": "Anup", "role": "allrounder" },
-    { "name": "Jay", "role": "allrounder" },
-    { "name": "Chintan", "role": "allrounder" },
-    { "name": "Viral", "role": "allrounder" },
-    { "name": "Ronak", "role": "allrounder" },
-    { "name": "Parshav", "role": "allrounder" },
-    { "name": "Jaitra", "role": "allrounder" },
-    { "name": "Alay", "role": "allrounder" },
-    { "name": "Tapu", "role": "allrounder" },
+    {
+      "name": "Anup Ahir",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Versatile all-rounder contributing consistently in both departments.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Jay Gandhi",
+      "role": "Batsman",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Economical bowler with the ability to score crucial lower-order runs.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Chintan Samosawala",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Offbreak",
+      "bio": "Team leader and dependable all-round performer under pressure.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Viral Rupani",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Legbreak",
+      "bio": "Strong stroke-maker who can chip in with the ball when needed.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Ronak Swaraj",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Provides balance to the side with flexible skillset.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Parshav Shah",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Spin-focused all-rounder effective in middle overs.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Jaitra Rewar",
+      "role": "Bowler",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Fast-Medium",
+      "bio": "Energetic all-rounder with strong fielding attributes.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Alay Jha",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Consistent performer contributing across all phases of the game.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Tapasvi",
+      "role": "Allrounder",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Medium",
+      "bio": "Strike bowler with late-order hitting capability.",
+      "avatar": "assets/images/players/player.png"
+    },
 
-    { "name": "Neel", "role": "bowler" },
-    { "name": "Shreeji", "role": "bowler" },
-    { "name": "Robin", "role": "bowler" },
-    { "name": "Parth", "role": "bowler" }
+    {
+      "name": "Neel Damani",
+      "role": "Bowler",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Fast-Medium",
+      "bio": "Primary strike bowler leading the pace attack.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Shreeji Patel",
+      "role": "Bowler",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Left Arm Rightbreak",
+      "bio": "Control-oriented spinner focusing on economy and breakthroughs.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Robin Joshi",
+      "role": "Bowler",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Fast-Medium",
+      "bio": "Aggressive fast bowler effective with the new ball.",
+      "avatar": "assets/images/players/player.png"
+    },
+    {
+      "name": "Parth Shah",
+      "role": "Bowler",
+      "battingStyle": "Right Handed Bat",
+      "bowlingStyle": "Right Arm Fast-Medium",
+      "bio": "Specialist in closing overs with yorkers and variations.",
+      "avatar": "assets/images/players/player.png"
+    }
   ]
 }
