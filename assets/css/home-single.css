@@ -1,28 +1,36 @@
-/* ===============================
-   BASE
-   =============================== */
+/* =================================================
+   BASE RESET
+   ================================================= */
 
 html, body {
   margin: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, #0c2a44, #071a2f);
   overflow: hidden;
-  font-family: system-ui, -apple-system, Segoe UI, Arial;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial;
+  background: #071a2f;
   color: #fff;
 }
+
+/* =================================================
+   SCENE (ISOLATED LAYER)
+   ================================================= */
 
 .scene {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  /* ✅ CRITICAL: isolates background from overlay blur */
+  isolation: isolate;
 }
 
-/* ===============================
-   LIVE BACKGROUND (OPTION 1 + 2)
-   =============================== */
+/* =================================================
+   LIVE BACKGROUND (OPTION 1 + OPTION 2)
+   ================================================= */
 
+/* Ambient orange energy */
 .scene::before {
   content: "";
   position: absolute;
@@ -31,11 +39,14 @@ html, body {
     radial-gradient(circle at 30% 40%, rgba(245,166,35,0.18), transparent 55%),
     radial-gradient(circle at 70% 60%, rgba(245,166,35,0.14), transparent 60%),
     radial-gradient(circle at 50% 80%, rgba(245,166,35,0.10), transparent 65%);
-  animation: orangeDrift 26s ease-in-out infinite;
+  animation: orangeDrift 28s ease-in-out infinite;
+
+  /* ✅ FORCE BEHIND EVERYTHING */
+  z-index: -1;
   pointer-events: none;
-  z-index: 0;
 }
 
+/* Soft pulse rings */
 .scene::after {
   content: "";
   position: absolute;
@@ -43,8 +54,10 @@ html, body {
   background:
     radial-gradient(circle at center, rgba(245,166,35,0.12) 0%, transparent 35%);
   animation: pulseField 7s ease-out infinite;
+
+  /* ✅ FORCE BEHIND EVERYTHING */
+  z-index: -1;
   pointer-events: none;
-  z-index: 0;
 }
 
 @keyframes orangeDrift {
@@ -54,13 +67,13 @@ html, body {
 }
 
 @keyframes pulseField {
-  0%   { transform: scale(0.9); opacity: 0.55; }
+  0%   { transform: scale(0.9); opacity: 0.5; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* ===============================
-   CONTENT LAYERS
-   =============================== */
+/* =================================================
+   SCENE CONTENT
+   ================================================= */
 
 .scene-hint {
   position: absolute;
@@ -96,6 +109,10 @@ html, body {
   50%     { transform: scale(1.05); }
 }
 
+/* =================================================
+   RADIAL MENU
+   ================================================= */
+
 .radial-menu {
   position: absolute;
   inset: 0;
@@ -113,6 +130,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.8);
   pointer-events: none;
@@ -137,15 +155,18 @@ html, body {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* ===============================
-   OVERLAY
-   =============================== */
+/* =================================================
+   OVERLAY (FIXED – NO BLEEDING)
+   ================================================= */
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(14px);
+
+  /* ✅ solid enough so blur never distorts background */
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(10px);
+
   opacity: 0;
   pointer-events: none;
   z-index: 20;
@@ -163,6 +184,10 @@ html, body {
   padding: 20px;
   max-height: calc(100vh - 96px);
   overflow: auto;
+
+  /* ✅ THIS STOPS ALL VISUAL DISTORTION */
+  background: rgba(0,0,0,0.55);
+  border-radius: 16px;
 }
 
 .close-btn {
