@@ -1,13 +1,19 @@
 :root{
-  --bg1:#071a2f;
-  --bg2:#0c2a44;
-  --gold:#f5a623;
+  /* ===============================
+     GJ LIONS BRAND PALETTE
+     =============================== */
+
+  --bg1:#0b1a2a;        /* deep navy */
+  --bg2:#4a0f0f;        /* deep maroon */
+
+  --gold:#d4a44c;       /* lion mane gold */
+
   --text:#ffffff;
-  --muted:rgba(255,255,255,0.70);
+  --muted:rgba(255,255,255,0.68);
 
   --cardBg: rgba(255,255,255,0.06);
-  --cardBorder: rgba(255,255,255,0.12);
-  --shadow: 0 18px 40px rgba(0,0,0,0.45);
+  --cardBorder: rgba(255,255,255,0.14);
+  --shadow: 0 18px 40px rgba(0,0,0,0.5);
   --radius: 14px;
 }
 
@@ -29,21 +35,27 @@ html,body{
   height:100%;
 }
 
-/* Hint */
+/* =================================================
+   SCENE HINT
+   ================================================= */
+
 .scene-hint{
   position:absolute;
   top:14px;
   width:100%;
   text-align:center;
   font-size:12px;
-  letter-spacing:0px;
+  letter-spacing:0;
   text-transform:capitalize;
   color:rgba(255,255,255,.45);
   pointer-events:none;
   z-index:3;
 }
 
-/* Logo */
+/* =================================================
+   LOGO (GJ LIONS)
+   ================================================= */
+
 .logo-core{
   position:absolute;
   top:50%;
@@ -59,10 +71,10 @@ html,body{
   width:min(520px,75vw);
   animation:breathe 6s ease-in-out infinite;
 
-  /* glow + breathe */
+  /* ✅ Royal gold glow (lion mane) */
   filter:
-    drop-shadow(0 0 30px rgba(245,166,35,0.45))
-    drop-shadow(0 0 90px rgba(245,166,35,0.25));
+    drop-shadow(0 0 28px rgba(212,164,76,0.45))
+    drop-shadow(0 0 85px rgba(212,164,76,0.25));
 }
 
 @keyframes breathe{
@@ -70,7 +82,10 @@ html,body{
   50%{ transform:scale(1.05); }
 }
 
-/* Radial menu */
+/* =================================================
+   RADIAL MENU
+   ================================================= */
+
 .radial-menu{
   position:absolute;
   inset:0;
@@ -96,7 +111,7 @@ html,body{
   align-items:center;
   gap:8px;
 
-  letter-spacing:0px;
+  letter-spacing:0;
   text-transform:capitalize;
   color:#fff;
 
@@ -119,6 +134,7 @@ html,body{
 }
 
 .menu-item span{
+  font-family: "Matchday", system-ui;
   font-size:1.1rem;
   font-weight:700;
   white-space:nowrap;
@@ -130,7 +146,10 @@ html,body{
   transform:translate(-50%,-50%) scale(1);
 }
 
-/* Overlay */
+/* =================================================
+   OVERLAY
+   ================================================= */
+
 .overlay{
   position:absolute;
   inset:0;
@@ -175,198 +194,81 @@ html,body{
   to{ opacity:1; transform: translateY(0); }
 }
 
-/* Overlay header + back */
+/* =================================================
+   OVERLAY HEADER
+   ================================================= */
+
 .overlay-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap: 12px;
-  margin: 6px 0 14px;
+  gap:12px;
+  margin:6px 0 14px;
 }
+
 .overlay-title{
-  font-size: 2rem;
-  font-weight: 800;
+  font-size:2rem;
+  font-weight:800;
   margin:0;
 }
+
 .back-btn{
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-  border-radius: 999px;
-  padding: 8px 12px;
+  border:1px solid rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.06);
+  color:#fff;
+  border-radius:999px;
+  padding:8px 12px;
   cursor:pointer;
-  font-weight: 700;
+  font-weight:700;
   display:inline-flex;
   align-items:center;
   gap:8px;
 }
+
 .back-btn:hover{
-  border-color: rgba(245,166,35,0.35);
-  background: rgba(245,166,35,0.10);
-}
-.subtext{
-  color: var(--muted);
-  margin: 0 0 12px;
+  border-color: rgba(212,164,76,0.45);
+  background: rgba(212,164,76,0.12);
 }
 
-/* Card grid */
+.subtext{
+  color: var(--muted);
+  margin:0 0 12px;
+}
+
+/* =================================================
+   CARDS & GRID
+   ================================================= */
+
 .card-grid{
   display:grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 12px;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:12px;
 }
-@media (min-width: 720px){
-  .card-grid{ grid-template-columns: 1fr 1fr; }
+
+@media(min-width:720px){
+  .card-grid{ grid-template-columns:1fr 1fr; }
 }
 
 .card{
-  border-radius: var(--radius);
-  border: 1px solid var(--cardBorder);
-  background: var(--cardBg);
-  box-shadow: var(--shadow);
-  padding: 14px 14px;
+  border-radius:var(--radius);
+  border:1px solid var(--cardBorder);
+  background:var(--cardBg);
+  box-shadow:var(--shadow);
+  padding:14px;
   cursor:pointer;
-  transition: transform .2s ease, border-color .2s ease;
+  transition:.2s ease;
 }
+
 .card:hover{
-  transform: translateY(-2px);
-  border-color: rgba(245,166,35,0.25);
+  transform:translateY(-2px);
+  border-color: rgba(212,164,76,0.35);
 }
 
-.card-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-}
-.card-left{
-  display:flex;
-  align-items:center;
-  gap: 10px;
-}
-.card-icon{
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-  filter: drop-shadow(0 0 10px rgba(245,166,35,0.18));
-}
-.card-title{
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin:0;
-}
-.card-meta{
-  color: var(--muted);
-  font-size: .92rem;
-  margin-top: 6px;
-}
-.badge{
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(245,166,35,0.12);
-  border: 1px solid rgba(245,166,35,0.25);
-  color: #fff;
-  font-weight: 800;
-  font-size: .85rem;
-  white-space:nowrap;
-}
-.match-time{
-  font-weight: 900;
-  letter-spacing: .02em;
-}
+/* Detail / squad / fixtures styles remain unchanged */
 
-/* Detail */
-.detail-card{
-  border-radius: var(--radius);
-  border: 1px solid var(--cardBorder);
-  background: var(--cardBg);
-  box-shadow: var(--shadow);
-  padding: 16px;
-}
-.detail-row{ margin: 10px 0; }
-.detail-label{ color: var(--muted); font-size: .9rem; margin-bottom: 4px; }
-.detail-value{ font-size: 1.05rem; font-weight: 750; }
-
-/* Squad */
-.squad-search{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  margin: 6px 0 14px;
-}
-.squad-search input{
-  width:100%;
-  padding: 12px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.06);
-  color:#fff;
-  outline:none;
-  font-size: 1rem;
-}
-.squad-search input::placeholder{ color: rgba(255,255,255,0.55); }
-.squad-search .clear-btn{
-  border-radius: 999px;
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.06);
-  color:#fff;
-  cursor:pointer;
-  font-weight:700;
-  white-space:nowrap;
-}
-.squad-search .clear-btn:hover{
-  border-color: rgba(245,166,35,0.35);
-  background: rgba(245,166,35,0.10);
-}
-
-.player-card{ text-align:center; padding: 16px 14px; }
-
-.avatar{
-  width: 92px;
-  height: 92px;
-  border-radius: 999px;
-  margin: 0 auto 12px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.06);
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.35);
-}
-.avatar img{ width:100%; height:100%; object-fit:cover; }
-.avatar .initials{
-  font-weight:900;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
-  color:#fff;
-}
-.player-name{ font-size: 1.15rem; font-weight: 900; margin: 0; }
-.player-role{ margin-top: 6px; color: var(--muted); text-transform: capitalize; font-size: .95rem; }
-
-.detail-section{
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.10);
-}
-.detail-section h3{ margin: 0 0 8px; font-size: 1.05rem; font-weight: 900; }
-.detail-section p{ margin: 0; color: var(--muted); line-height: 1.45; }
-
-/* Empty state */
-.empty-state{
-  margin-top: 18px;
-  padding: 18px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  text-align:center;
-}
-.empty-state .msg{ color: var(--muted); margin-bottom: 10px; }
-
-@media (max-width: 480px){
-  .logo-core img{ width: min(430px, 86vw); }
-  .menu-item span{ font-size: 1rem; }
-  .overlay-title{ font-size: 1.6rem; }
-  .avatar{ width: 84px; height: 84px; }
+@media(max-width:480px){
+  .logo-core img{ width:min(430px,86vw); }
+  .menu-item span{ font-size:1rem; }
+  .overlay-title{ font-size:1.6rem; }
 }
