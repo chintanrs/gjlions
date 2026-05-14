@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GJ Lions | Official Website</title>
 
-  <!-- Favicon: use logo.png -->
-  <link rel="icon" href="assets/images/logo.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/images/logo.png" />
+  <!-- Favicon (logo.png) -->
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
 
+  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/home-single.css" />
 </head>
 
@@ -19,38 +19,40 @@
 
   <!-- Center Logo -->
   <button class="logo-core" id="logoCore" type="button" aria-label="Open menu">
-    <img src="assets/images/logo.png" alt="GJ Titans logo" />
+    <img src="assets/images/logo.png" alt="GJ Lions logo">
   </button>
 
-  <!-- Radial Menu (4 items) -->
+  <!-- Radial Menu -->
   <div class="radial-menu" aria-label="Primary navigation">
     <button class="menu-item" data-key="squad" type="button" aria-label="Squad">
-      <img src="assets/images/squad.png" alt="" />
-      <span><b>Squad</b></span>
+      <img src="assets/images/squad.png" alt="">
+      <span>Squad</span>
     </button>
 
     <button class="menu-item" data-key="fixtures" type="button" aria-label="Fixtures">
-      <img src="assets/images/fixtures.png" alt="" />
-      <span><b>Fixtures</b></span>
+      <img src="assets/images/fixtures.png" alt="">
+      <span>Fixtures</span>
     </button>
 
     <button class="menu-item" data-key="gallery" type="button" aria-label="Gallery">
-      <img src="assets/images/gallery.png" alt="" />
-      <span><b>Gallery</b></span>
+      <img src="assets/images/gallery.png" alt="">
+      <span>Gallery</span>
     </button>
 
     <button class="menu-item" data-key="about" type="button" aria-label="About Us">
       <svg class="menu-svg" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4.6a1.4 1.4 0 110 2.8 1.4 1.4 0 010-2.8zM13.2 18h-2.4v-8h2.4v8z"/>
+        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+        10-4.48 10-10S17.52 2 12 2zm0 4.6a1.4 1.4 0 110 2.8 1.4 1.4 0 010-2.8z
+        M13.2 18h-2.4v-8h2.4v8z"/>
       </svg>
-      <span><b>About Us</b></span>
+      <span>About Us</span>
     </button>
   </div>
 
-  <!-- Content Overlay -->
+  <!-- Overlay -->
   <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="overlay-content" role="dialog" aria-modal="true" aria-label="Content">
-      <button class="close-btn" id="closeOverlay" type="button" aria-label="Close overlay">✕</button>
+    <div class="overlay-content" role="dialog" aria-modal="true">
+      <button class="close-btn" id="closeOverlay" type="button" aria-label="Close">✕</button>
       <div id="overlayBody"></div>
     </div>
   </div>
@@ -60,4 +62,3 @@
 <script src="assets/js/home-single.js"></script>
 </body>
 </html>
-``
