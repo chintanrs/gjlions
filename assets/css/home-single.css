@@ -2,10 +2,8 @@
   /* ===============================
      GJ LIONS BRAND PALETTE
      =============================== */
-
   --bg1:#0b1a2a;        /* deep navy */
   --bg2:#4a0f0f;        /* deep maroon */
-
   --gold:#d4a44c;       /* lion mane gold */
 
   --text:#ffffff;
@@ -35,9 +33,9 @@ html,body{
   height:100%;
 }
 
-/* =================================================
+/* ===============================
    SCENE HINT
-   ================================================= */
+   =============================== */
 
 .scene-hint{
   position:absolute;
@@ -52,9 +50,9 @@ html,body{
   z-index:3;
 }
 
-/* =================================================
-   LOGO (GJ LIONS)
-   ================================================= */
+/* ===============================
+   LOGO
+   =============================== */
 
 .logo-core{
   position:absolute;
@@ -71,7 +69,7 @@ html,body{
   width:min(520px,75vw);
   animation:breathe 6s ease-in-out infinite;
 
-  /* ✅ Royal gold glow (lion mane) */
+  /* ✅ GJ Lions gold glow */
   filter:
     drop-shadow(0 0 28px rgba(212,164,76,0.45))
     drop-shadow(0 0 85px rgba(212,164,76,0.25));
@@ -82,9 +80,9 @@ html,body{
   50%{ transform:scale(1.05); }
 }
 
-/* =================================================
+/* ===============================
    RADIAL MENU
-   ================================================= */
+   =============================== */
 
 .radial-menu{
   position:absolute;
@@ -111,7 +109,6 @@ html,body{
   align-items:center;
   gap:8px;
 
-  letter-spacing:0;
   text-transform:capitalize;
   color:#fff;
 
@@ -120,21 +117,15 @@ html,body{
     opacity .25s ease;
 }
 
-.menu-item img{
-  width:40px;
-  height:40px;
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.20));
-}
-
+.menu-item img,
 .menu-item .menu-svg{
   width:40px;
   height:40px;
-  color:#fff;
   filter: drop-shadow(0 0 12px rgba(255,255,255,0.20));
 }
 
 .menu-item span{
-  font-family: "Matchday", system-ui;
+  font-family:"Matchday", system-ui;
   font-size:1.1rem;
   font-weight:700;
   white-space:nowrap;
@@ -146,9 +137,9 @@ html,body{
   transform:translate(-50%,-50%) scale(1);
 }
 
-/* =================================================
+/* ===============================
    OVERLAY
-   ================================================= */
+   =============================== */
 
 .overlay{
   position:absolute;
@@ -167,17 +158,16 @@ html,body{
 }
 
 .overlay-content{
-  max-width: 840px;
-  margin: 56px auto 0;
-  padding: 18px 18px 20px;
-  max-height: calc(100vh - 96px);
+  max-width:840px;
+  margin:56px auto 0;
+  padding:18px 18px 20px;
+  max-height:calc(100vh - 96px);
   overflow:auto;
-  position: relative;
 }
 
 .close-btn{
-  position: sticky;
-  top: 10px;
+  position:sticky;
+  top:10px;
   float:right;
   background:none;
   border:none;
@@ -186,25 +176,10 @@ html,body{
   cursor:pointer;
   opacity:0.9;
 }
-.close-btn:hover{ opacity:1; }
 
-.fade-in{ animation: fadeIn .18s ease-out; }
-@keyframes fadeIn{
-  from{ opacity:0; transform: translateY(6px); }
-  to{ opacity:1; transform: translateY(0); }
-}
-
-/* =================================================
-   OVERLAY HEADER
-   ================================================= */
-
-.overlay-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin:6px 0 14px;
-}
+/* ===============================
+   HEADERS & TEXT
+   =============================== */
 
 .overlay-title{
   font-size:2rem;
@@ -212,32 +187,14 @@ html,body{
   margin:0;
 }
 
-.back-btn{
-  border:1px solid rgba(255,255,255,0.18);
-  background:rgba(255,255,255,0.06);
-  color:#fff;
-  border-radius:999px;
-  padding:8px 12px;
-  cursor:pointer;
-  font-weight:700;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-}
-
-.back-btn:hover{
-  border-color: rgba(212,164,76,0.45);
-  background: rgba(212,164,76,0.12);
-}
-
 .subtext{
-  color: var(--muted);
-  margin:0 0 12px;
+  color:var(--muted);
+  margin-bottom:12px;
 }
 
-/* =================================================
-   CARDS & GRID
-   ================================================= */
+/* ===============================
+   GRID & CARDS
+   =============================== */
 
 .card-grid{
   display:grid;
@@ -246,7 +203,7 @@ html,body{
   margin-top:12px;
 }
 
-@media(min-width:720px){
+@media (min-width:720px){
   .card-grid{ grid-template-columns:1fr 1fr; }
 }
 
@@ -257,18 +214,95 @@ html,body{
   box-shadow:var(--shadow);
   padding:14px;
   cursor:pointer;
-  transition:.2s ease;
 }
 
 .card:hover{
   transform:translateY(-2px);
-  border-color: rgba(212,164,76,0.35);
+  border-color:rgba(212,164,76,0.35);
 }
 
-/* Detail / squad / fixtures styles remain unchanged */
+/* ===============================
+   SQUAD FIXES ✅✅✅
+   =============================== */
+
+.player-card{
+  text-align:center;
+  padding:16px 14px;
+}
+
+.avatar{
+  width:92px;              /* ✅ LOCK SIZE */
+  height:92px;
+  border-radius:50%;
+  margin:0 auto 12px;
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.06);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  box-shadow:0 14px 28px rgba(0,0,0,0.35);
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.player-name{
+  font-size:1.15rem;
+  font-weight:900;
+}
+
+.player-role{
+  font-size:.95rem;
+  color:var(--muted);
+}
+
+/* ===============================
+   SEARCH BAR FIX ✅✅✅
+   =============================== */
+
+.squad-search{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.squad-search input{
+  width:100%;
+  padding:10px 14px;      /* ✅ FIXED */
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:.95rem;
+}
+
+.squad-search .clear-btn{
+  padding:8px 12px;       /* ✅ FIXED */
+  border-radius:999px;
+  font-size:.85rem;
+}
+
+/* ===============================
+   FIXTURES ICON FIX ✅✅✅
+   =============================== */
+
+.card-icon{
+  width:34px;             /* ✅ RESTORED */
+  height:34px;
+  flex-shrink:0;
+}
+
+/* ===============================
+   MOBILE
+   =============================== */
 
 @media(max-width:480px){
   .logo-core img{ width:min(430px,86vw); }
   .menu-item span{ font-size:1rem; }
   .overlay-title{ font-size:1.6rem; }
+  .avatar{ width:84px; height:84px; }
 }
