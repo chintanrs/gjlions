@@ -417,11 +417,11 @@ html,body{
 }
 
 .sponsor-logo{
-  width:48px;
-  height:48px;
+  width:auto;
+  height:80px;
   object-fit:contain;
 
-  filter: grayscale(100%) brightness(0.9);
+  filter: grayscale(0%) brightness(0.9);
   transition:.2s ease;
 }
 
