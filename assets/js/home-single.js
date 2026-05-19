@@ -359,3 +359,17 @@ async function renderSponsors(){
     `;
   }
 }
+
+
+/* ==========================
+   SPONSOR TRIGGER HANDLER
+   ========================== */
+
+document.getElementById("sponsorTrigger")
+  .addEventListener("click", () => {
+    overlay.classList.add("active");
+    overlay.setAttribute("aria-hidden","false");
+    scene.classList.remove("is-open");
+    renderSponsors();
+  });
+
