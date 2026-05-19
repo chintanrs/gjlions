@@ -342,7 +342,7 @@ html,body{
 
 .sponsors-bar{
   position:absolute;
-  bottom:16px;
+  bottom:25px;
   width:100%;
 
   display:flex;
@@ -356,12 +356,12 @@ html,body{
 
 /* sponsor logos */
 .sponsors-bar img{
-  height:38px;
+  height:50px;
   width:auto;
   object-fit:contain;
 
   filter:
-    grayscale(100%)
+    grayscale(0%)
     brightness(0.9)
     opacity(0.85);
 
