@@ -1,0 +1,25 @@
+{
+  "title": "Powering the Pride",
+  "items": [
+    {
+      "name": "Sponsor One",
+      "logo": "assets/images/sponsors/s1.png",
+      "url": "https://example.com"
+    },
+    {
+      "name": "Sponsor Two",
+      "logo": "assets/images/sponsors/s2.png",
+      "url": "https://example.com"
+    },
+    {
+      "name": "Sponsor Three",
+      "logo": "assets/images/sponsors/s3.png",
+      "url": "https://example.com"
+    },
+    {
+      "name": "Sponsor Four",
+      "logo": "assets/images/sponsors/s4.png",
+      "url": "https://example.com"
+    }
+  ]
+}
