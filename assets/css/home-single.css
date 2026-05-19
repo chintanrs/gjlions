@@ -362,7 +362,7 @@ html,body{
 
   filter:
     grayscale(0%)
-    brightness(1.5)
+    brightness(1.0)
     opacity(1);
 
   transition: all 0.25s ease;
@@ -372,7 +372,7 @@ html,body{
 .sponsors-bar img:hover{
   filter:
     grayscale(0%)
-    brightness(1.1)
+    brightness(1.0)
     opacity(1);
 
   transform: scale(1.05);
