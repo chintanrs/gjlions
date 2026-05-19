@@ -336,6 +336,66 @@ html,body{
   border-top:1px solid rgba(255,255,255,0.12);
 }
 
+/* ===============================
+   SPONSORS BAR (HOMEPAGE)
+   =============================== */
+
+.sponsors-bar{
+  position:absolute;
+  bottom:16px;
+  width:100%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:28px;
+
+  z-index:4; /* below menu icons, above background */
+  pointer-events:auto;
+}
+
+/* sponsor logos */
+.sponsors-bar img{
+  height:38px;
+  width:auto;
+  object-fit:contain;
+
+  filter:
+    grayscale(100%)
+    brightness(0.9)
+    opacity(0.85);
+
+  transition: all 0.25s ease;
+}
+
+/* hover effect */
+.sponsors-bar img:hover{
+  filter:
+    grayscale(0%)
+    brightness(1.1)
+    opacity(1);
+
+  transform: scale(1.05);
+}
+
+/* mobile */
+@media (max-width:480px){
+  .sponsors-bar{
+    gap:18px;
+    bottom:10px;
+  }
+
+  .sponsors-bar img{
+    height:30px;
+  }
+}
+
+/* hide sponsors when overlay is open */
+.overlay.active ~ .sponsors-bar{
+  display:none;
+}
+
+
 /* Mobile */
 @media(max-width:480px){
   .logo-core img{ width:min(430px,86vw); }
@@ -344,4 +404,3 @@ html,body{
   .avatar{ width:84px; height:84px; }
   .detail-card{ margin-top:20px; padding:18px; }
 }
-``
