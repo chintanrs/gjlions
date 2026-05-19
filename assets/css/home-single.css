@@ -357,7 +357,7 @@ html,body{
 /* sponsor logos */
 .sponsors-bar img{
   height:100px;
-  width:100px;
+  width:auto;
   object-fit:contain;
 
   filter:
