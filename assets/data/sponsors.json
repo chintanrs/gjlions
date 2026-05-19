@@ -7,6 +7,7 @@
     },
     {
       "logo": "assets/images/sponsors/s2.png",
+      "url": "#"
     },
     {
       "logo": "assets/images/sponsors/s3.png",
@@ -14,6 +15,7 @@
     },
     {
       "logo": "assets/images/sponsors/s4.png",
+      "url": "#"
     }
   ]
 }
