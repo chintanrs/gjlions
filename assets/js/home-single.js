@@ -330,4 +330,32 @@ function initialsFromName(name=""){
   const b = parts[1]?.[0] || "";
   return (a+b).toUpperCase() || (parts[0]?.slice(0,2).toUpperCase() || "GL");
 }
-``
+
+async function renderSponsors(){
+  try{
+    const res = await fetch("assets/data/sponsors.json", { cache: "no-store" });
+    const data = await res.json();
+
+    overlayBody.innerHTML = `
+      <div class="fade-in">
+        <h1 class="overlay-title">${data.title}</h1>
+
+        <div class="sponsor-grid">
+          ${data.items.map(s => `
+            <div class="sponsor-card" onclick="window.open('${s.url}', '_blank')">
+              <img src="${s.logo}" class="sponsor-logo" />
+              <div class="sponsor-name">${s.name}</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }catch{
+    overlayBody.innerHTML = `
+      <div class="fade-in">
+        <h1 class="overlay-title">Powering the Pride</h1>
+        <p class="subtext">Unable to load sponsors.</p>
+      </div>
+    `;
+  }
+}
