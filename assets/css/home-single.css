@@ -434,6 +434,64 @@ html,body{
   font-weight:700;
 }
 
+/* =========================================
+   SPONSOR CTA (ENHANCED)
+   ========================================= */
+
+.sponsor-trigger{
+  position:absolute;
+  bottom:20px;
+  width:100%;
+  text-align:center;
+  cursor:pointer;
+  z-index:4;
+}
+
+/* hint text */
+.sponsor-hint{
+  font-size:0.7rem;
+  letter-spacing:1px;
+  color:rgba(255,255,255,0.6);
+
+  margin-bottom:4px;
+
+  animation: hintPulse 2s infinite ease-in-out;
+}
+
+/* main text */
+.sponsor-text{
+  font-family:"Matchday", system-ui;
+  font-size:1rem;
+  letter-spacing:1px;
+  color:#ffffff;
+
+  text-shadow:
+    0 0 8px rgba(212,164,76,0.6),
+    0 0 18px rgba(212,164,76,0.4);
+
+  transition:.3s ease;
+}
+
+/* hover = slightly stronger */
+.sponsor-trigger:hover .sponsor-text{
+  transform:scale(1.05);
+  text-shadow:
+    0 0 12px rgba(212,164,76,0.85),
+    0 0 28px rgba(212,164,76,0.55);
+}
+
+/* subtle pulse animation (non-tacky) */
+@keyframes hintPulse{
+  0%{ opacity:0.6; transform:translateY(0); }
+  50%{ opacity:1; transform:translateY(-2px); }
+  100%{ opacity:0.6; transform:translateY(0); }
+}
+
+/* hide when overlay opens */
+.overlay.active ~ .sponsor-trigger{
+  display:none;
+}
+
 
 /* Mobile */
 @media(max-width:480px){
