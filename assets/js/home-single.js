@@ -342,10 +342,11 @@ async function renderSponsors(){
 
         <div class="sponsor-grid">
           ${data.items.map(s => `
-            <div class="sponsor-card" onclick="window.open('${s.url}', '_blank')">
-              <img src="${s.logo}" class="sponsor-logo" />
-              <div class="sponsor-name">${s.name}</div>
-            </div>
+           
+<div class="sponsor-card" onclick="window.open('${s.url}', '_blank')">
+  <img src="${s.logo}" class="sponsor-logo" />
+</div>
+
           `).join("")}
         </div>
       </div>
