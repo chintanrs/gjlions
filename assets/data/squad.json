@@ -13,7 +13,7 @@
       "role": "Batsman",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Offbreak",
-      "bio": "Reliable middle-order presence with strong shot selection.",
+      "bio": "A specialist batter focused on scoring runs and building innings with consistency and control.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -21,7 +21,7 @@
       "role": "Allrounder",
       "battingStyle": "Left Handed Bat",
       "bowlingStyle": "Right Arm Medium",
-      "bio": "Technically sound opener with the ability to anchor innings.",
+      "bio": "A reliable scorer who balances defence with calculated aggression.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -29,7 +29,7 @@
       "role": "Batsman",
       "battingStyle": "Left Handed Bat",
       "bowlingStyle": "Left Arm Medium",
-      "bio": "Explosive finisher capable of changing the game in final overs.",
+      "bio": "Focused on maximizing scoring opportunities and converting starts into big runs.",
       "avatar": "assets/images/players/player.png"
     },
 
@@ -38,7 +38,7 @@
       "role": "Allrounder",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Medium",
-      "bio": "Versatile all-rounder contributing consistently in both departments.",
+      "bio": "Balances the team by delivering impact in multiple aspects of the game.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -46,7 +46,7 @@
       "role": "Batsman",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Medium",
-      "bio": "Economical bowler with the ability to score crucial lower-order runs.",
+      "bio": "Enhances team balance with reliable batting and effective fielding.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -54,7 +54,7 @@
       "role": "Allrounder",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Offbreak",
-      "bio": "Team leader and dependable all-round performer under pressure.",
+      "bio": "The on field leader who guides the team tactically and mentally.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -62,7 +62,7 @@
       "role": "Allrounder",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Legbreak",
-      "bio": "Strong stroke-maker who can chip in with the ball when needed.",
+      "bio": "A run machine who adapts to match situations and keeps the scoreboard moving.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -70,7 +70,7 @@
       "role": "Allrounder",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Medium",
-      "bio": "Provides balance to the side with flexible skillset.",
+      "bio": "Anchors the team’s innings by rotating strike and forming crucial partnerships.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -78,7 +78,7 @@
       "role": "Allrounder",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Medium",
-      "bio": "Spin-focused all-rounder effective in middle overs.",
+      "bio": "Balances the team by delivering impact in multiple aspects of the game.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -86,7 +86,7 @@
       "role": "Bowler",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Fast-Medium",
-      "bio": "Energetic all-rounder with strong fielding attributes.",
+      "bio": "Masters variations and line and length to outsmart opponents.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -102,7 +102,7 @@
       "role": "Allrounder",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Medium",
-      "bio": "Strike bowler with late-order hitting capability.",
+      "bio": "Adds depth to the squad with dual skills and consistent contributions.",
       "avatar": "assets/images/players/player.png"
     },
 
@@ -111,7 +111,7 @@
       "role": "Bowler",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Fast-Medium",
-      "bio": "Primary strike bowler leading the pace attack.",
+      "bio": "Steps up with bat or ball depending on the team’s needs.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -119,7 +119,7 @@
       "role": "Bowler",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Left Arm Rightbreak",
-      "bio": "Control-oriented spinner focusing on economy and breakthroughs.",
+      "bio": "A strike weapon capable of turning the game with wickets.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -127,7 +127,7 @@
       "role": "Bowler",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Fast-Medium",
-      "bio": "Aggressive fast bowler effective with the new ball.",
+      "bio": "Delivers key breakthroughs in crucial match situations.",
       "avatar": "assets/images/players/player.png"
     },
     {
@@ -135,7 +135,7 @@
       "role": "Bowler",
       "battingStyle": "Right Handed Bat",
       "bowlingStyle": "Right Arm Fast-Medium",
-      "bio": "Specialist in closing overs with yorkers and variations.",
+      "bio": "A dependable performer trusted to deliver in key overs.",
       "avatar": "assets/images/players/player.png"
     }
   ]
